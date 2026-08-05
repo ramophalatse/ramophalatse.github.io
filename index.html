@@ -124,16 +124,14 @@
     border: 1px solid var(--border);
     border-radius: var(--radius);
     padding: 18px 20px;
-    text-decoration: none;
     color: inherit;
     display: flex;
     flex-direction: column;
     gap: 8px;
     box-shadow: var(--shadow);
-    transition: transform 0.15s ease, border-color 0.15s ease;
+    transition: border-color 0.15s ease;
   }
   .card:hover {
-    transform: translateY(-2px);
     border-color: var(--accent);
   }
   .card-top {
@@ -146,7 +144,10 @@
     font-weight: 600;
     font-size: 15px;
     word-break: break-word;
+    text-decoration: none;
+    color: inherit;
   }
+  .card-name:hover { color: var(--accent); }
   .badge {
     font-family: var(--mono);
     font-size: 10px;
@@ -179,6 +180,32 @@
     border-radius: 50%;
     background: var(--accent-dim);
     flex-shrink: 0;
+  }
+  .pages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .page-link {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 4px 9px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    text-decoration: none;
+    background: var(--bg);
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+  .page-link:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .page-link.disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
   }
   .state {
     text-align: center;
@@ -240,6 +267,7 @@
   const updatedEl = document.getElementById("updated-at");
 
   let repos = [];
+  const filesByRepo = {};
 
   function timeAgo(dateStr) {
     const diff = (Date.now() - new Date(dateStr).getTime()) / 1000;
@@ -253,10 +281,49 @@
     return "just now";
   }
 
-  function repoUrl(repo) {
+  function cacheGet(key, ttlMs) {
+    try {
+      const raw = sessionStorage.getItem(key);
+      if (!raw) return null;
+      const { t, v } = JSON.parse(raw);
+      if (Date.now() - t > ttlMs) return null;
+      return v;
+    } catch { return null; }
+  }
+
+  function cacheSet(key, v) {
+    try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), v })); } catch {}
+  }
+
+  async function fetchRepoFiles(repo) {
+    const cacheKey = `ghfiles:${repo.name}`;
+    const cached = cacheGet(cacheKey, 10 * 60 * 1000);
+    if (cached) return cached;
+    try {
+      const res = await fetch(`https://api.github.com/repos/${USERNAME}/${repo.name}/contents`);
+      if (!res.ok) return [];
+      const data = await res.json();
+      const htmlFiles = Array.isArray(data)
+        ? data.filter(f => f.type === "file" && /\.html?$/i.test(f.name)).map(f => f.name)
+        : [];
+      cacheSet(cacheKey, htmlFiles);
+      return htmlFiles;
+    } catch {
+      return [];
+    }
+  }
+
+  function pageUrlFor(repo, filename) {
     return repo.has_pages
-      ? `https://${USERNAME}.github.io/${repo.name}/`
-      : repo.html_url;
+      ? `https://${USERNAME}.github.io/${repo.name}/${filename}`
+      : null;
+  }
+
+  function repoRootUrl(repo, files) {
+    if (repo.has_pages && files.includes("index.html")) {
+      return `https://${USERNAME}.github.io/${repo.name}/`;
+    }
+    return repo.html_url;
   }
 
   function render() {
@@ -281,20 +348,35 @@
       return;
     }
 
-    gridEl.innerHTML = list.map(r => `
-      <a class="card" href="${repoUrl(r)}" target="_blank" rel="noopener">
-        <div class="card-top">
-          <span class="card-name">${r.name}</span>
-          ${r.has_pages ? '<span class="badge">live</span>' : ''}
+    gridEl.innerHTML = list.map(r => {
+      const files = filesByRepo[r.name] || [];
+      const otherFiles = files.filter(f => f.toLowerCase() !== "index.html");
+      const rootUrl = repoRootUrl(r, files);
+
+      const chips = otherFiles.map(f => {
+        const url = pageUrlFor(r, f);
+        const label = escapeHtml(f.replace(/\.html?$/i, ""));
+        return url
+          ? `<a class="page-link" href="${url}" target="_blank" rel="noopener">${label}</a>`
+          : `<span class="page-link disabled" title="Pages not enabled for this repo">${label}</span>`;
+      }).join("");
+
+      return `
+        <div class="card">
+          <div class="card-top">
+            <a class="card-name" href="${rootUrl}" target="_blank" rel="noopener">${r.name}</a>
+            ${r.has_pages ? '<span class="badge">live</span>' : ''}
+          </div>
+          <div class="card-desc">${r.description ? escapeHtml(r.description) : "&nbsp;"}</div>
+          <div class="card-meta">
+            ${r.language ? `<span><span class="dot"></span></span><span>${r.language}</span>` : ""}
+            <span>·</span>
+            <span>updated ${timeAgo(r.pushed_at)}</span>
+          </div>
+          ${chips ? `<div class="pages">${chips}</div>` : ""}
         </div>
-        <div class="card-desc">${r.description ? escapeHtml(r.description) : "&nbsp;"}</div>
-        <div class="card-meta">
-          ${r.language ? `<span><span class="dot"></span></span><span>${r.language}</span>` : ""}
-          <span>·</span>
-          <span>updated ${timeAgo(r.pushed_at)}</span>
-        </div>
-      </a>
-    `).join("");
+      `;
+    }).join("");
   }
 
   function escapeHtml(str) {
@@ -310,6 +392,11 @@
       const data = await res.json();
       repos = data.filter(r => !r.fork);
       updatedEl.textContent = `fetched ${new Date().toLocaleString()}`;
+      render();
+
+      await Promise.all(repos.map(async r => {
+        filesByRepo[r.name] = await fetchRepoFiles(r);
+      }));
       render();
     } catch (err) {
       gridEl.innerHTML = `<div class="state">couldn't load repos (${escapeHtml(err.message)}). <a href="https://github.com/${USERNAME}?tab=repositories">view on GitHub</a></div>`;
