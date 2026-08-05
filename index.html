@@ -4,41 +4,58 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>ramophalatse — repos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@700;800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f7f6f3;
-    --surface: #ffffff;
-    --border: #e4e1da;
-    --text: #1c1b19;
-    --text-dim: #6b6860;
-    --accent: #b5502f;
-    --accent-dim: #d9c9a8;
-    --shadow: 0 1px 2px rgba(28,27,25,0.06), 0 8px 20px rgba(28,27,25,0.04);
-    --radius: 14px;
-    --mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
-    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+    --bg: #f7f6f1;
+    --bg-deep: #edebe5;
+    --surface: #fdfcf9;
+    --card: #ffffff;
+    --elevated: #f1efeb;
+    --text: #1f232a;
+    --muted: #5f646b;
+    --faint: #8b8f97;
+    --accent: #059669;
+    --border: rgba(20,22,28,0.10);
+    --border-strong: rgba(20,22,28,0.20);
+    --shadow: 0 1px 2px rgba(20,22,28,.05), 0 12px 40px -16px rgba(20,22,28,.22);
+    --card-r: 18px;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+    --sans: "Hanken Grotesk", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --display: "Sora", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --ease-overshoot: cubic-bezier(0.34, 1.56, 0.64, 1);
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #171614;
-      --surface: #201f1c;
-      --border: #35332e;
-      --text: #f2efe9;
-      --text-dim: #a29d92;
-      --accent: #e08b5f;
-      --accent-dim: #4a3d2c;
-      --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.3);
+      --bg: #0a0f14;
+      --bg-deep: #05080c;
+      --surface: #11151b;
+      --card: #151a20;
+      --elevated: #20262c;
+      --text: #f1f4f7;
+      --muted: #a1a9b1;
+      --faint: #697179;
+      --accent: #10b981;
+      --border: rgba(255,255,255,0.085);
+      --border-strong: rgba(255,255,255,0.17);
+      --shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 24px 60px -24px rgba(0,0,0,.7);
     }
   }
   :root[data-theme="dark"] {
-    --bg: #171614; --surface: #201f1c; --border: #35332e; --text: #f2efe9;
-    --text-dim: #a29d92; --accent: #e08b5f; --accent-dim: #4a3d2c;
-    --shadow: 0 1px 2px rgba(0,0,0,0.4), 0 8px 24px rgba(0,0,0,0.3);
+    --bg: #0a0f14; --bg-deep: #05080c; --surface: #11151b; --card: #151a20; --elevated: #20262c;
+    --text: #f1f4f7; --muted: #a1a9b1; --faint: #697179;
+    --accent: #10b981;
+    --border: rgba(255,255,255,0.085); --border-strong: rgba(255,255,255,0.17);
+    --shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 24px 60px -24px rgba(0,0,0,.7);
   }
   :root[data-theme="light"] {
-    --bg: #f7f6f3; --surface: #ffffff; --border: #e4e1da; --text: #1c1b19;
-    --text-dim: #6b6860; --accent: #b5502f; --accent-dim: #d9c9a8;
-    --shadow: 0 1px 2px rgba(28,27,25,0.06), 0 8px 20px rgba(28,27,25,0.04);
+    --bg: #f7f6f1; --bg-deep: #edebe5; --surface: #fdfcf9; --card: #ffffff; --elevated: #f1efeb;
+    --text: #1f232a; --muted: #5f646b; --faint: #8b8f97;
+    --accent: #059669;
+    --border: rgba(20,22,28,0.10); --border-strong: rgba(20,22,28,0.20);
+    --shadow: 0 1px 2px rgba(20,22,28,.05), 0 12px 40px -16px rgba(20,22,28,.22);
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
@@ -46,37 +63,50 @@
     background: var(--bg);
     color: var(--text);
     font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
     min-height: 100vh;
   }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
   .wrap {
-    max-width: 960px;
+    max-width: 1080px;
     margin: 0 auto;
-    padding: 64px 24px 80px;
+    padding: 64px 28px 80px;
   }
   header {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin-bottom: 40px;
+    animation: pop-in 0.5s var(--ease-overshoot) both;
+  }
+  @keyframes pop-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
   }
   .eyebrow {
     font-family: var(--mono);
-    font-size: 12px;
-    letter-spacing: 0.08em;
+    font-size: 11px;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--muted);
   }
   h1 {
     margin: 0;
+    font-family: var(--display);
+    font-weight: 800;
     font-size: clamp(28px, 5vw, 40px);
-    font-weight: 650;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.045em;
+    line-height: 1.06;
+    text-wrap: balance;
   }
   .sub {
-    color: var(--text-dim);
+    color: var(--muted);
     font-size: 15px;
-    max-width: 60ch;
-    line-height: 1.5;
+    max-width: 66ch;
+    line-height: 1.6;
   }
   .controls {
     display: flex;
@@ -88,7 +118,7 @@
   input[type="search"] {
     flex: 1;
     min-width: 200px;
-    background: var(--surface);
+    background: var(--card);
     border: 1px solid var(--border);
     color: var(--text);
     border-radius: 10px;
@@ -98,9 +128,9 @@
     outline: none;
     transition: border-color 0.15s;
   }
-  input[type="search"]:focus { border-color: var(--accent); }
+  input[type="search"]:focus { border-color: var(--border-strong); }
   .sort-select {
-    background: var(--surface);
+    background: var(--card);
     border: 1px solid var(--border);
     color: var(--text);
     border-radius: 10px;
@@ -112,7 +142,8 @@
   .count {
     font-family: var(--mono);
     font-size: 12px;
-    color: var(--text-dim);
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
   }
   .grid {
     display: grid;
@@ -120,19 +151,20 @@
     gap: 14px;
   }
   .card {
-    background: var(--surface);
+    background: var(--card);
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: var(--card-r);
     padding: 18px 20px;
     color: inherit;
     display: flex;
     flex-direction: column;
     gap: 8px;
     box-shadow: var(--shadow);
-    transition: border-color 0.15s ease;
+    transition: border-color 0.15s ease, transform 0.25s var(--ease-overshoot);
   }
   .card:hover {
-    border-color: var(--accent);
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
   }
   .card-top {
     display: flex;
@@ -141,8 +173,10 @@
     gap: 8px;
   }
   .card-name {
-    font-weight: 600;
+    font-family: var(--display);
+    font-weight: 700;
     font-size: 15px;
+    letter-spacing: -0.01em;
     word-break: break-word;
     text-decoration: none;
     color: inherit;
@@ -151,15 +185,15 @@
   .badge {
     font-family: var(--mono);
     font-size: 10px;
-    padding: 3px 7px;
-    border-radius: 100px;
-    background: var(--accent-dim);
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--accent);
     color: var(--accent);
     white-space: nowrap;
     flex-shrink: 0;
   }
   .card-desc {
-    color: var(--text-dim);
+    color: var(--muted);
     font-size: 13px;
     line-height: 1.45;
     min-height: 18px;
@@ -171,14 +205,15 @@
     margin-top: auto;
     padding-top: 8px;
     font-size: 12px;
-    color: var(--text-dim);
+    color: var(--muted);
     font-family: var(--mono);
+    font-variant-numeric: tabular-nums;
   }
   .dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: var(--accent-dim);
+    background: var(--accent);
     flex-shrink: 0;
   }
   .pages {
@@ -191,11 +226,11 @@
     font-family: var(--mono);
     font-size: 11px;
     padding: 4px 9px;
-    border-radius: 100px;
+    border-radius: 999px;
     border: 1px solid var(--border);
-    color: var(--text-dim);
+    color: var(--muted);
     text-decoration: none;
-    background: var(--bg);
+    background: var(--elevated);
     transition: border-color 0.15s ease, color 0.15s ease;
   }
   .page-link:hover {
@@ -210,7 +245,7 @@
   .state {
     text-align: center;
     padding: 60px 0;
-    color: var(--text-dim);
+    color: var(--muted);
     font-family: var(--mono);
     font-size: 13px;
   }
@@ -218,7 +253,7 @@
     margin-top: 56px;
     padding-top: 20px;
     border-top: 1px solid var(--border);
-    color: var(--text-dim);
+    color: var(--muted);
     font-size: 12px;
     font-family: var(--mono);
     display: flex;
@@ -226,8 +261,12 @@
     flex-wrap: wrap;
     gap: 8px;
   }
-  footer a { color: var(--text-dim); }
+  footer a { color: var(--muted); }
   a { color: var(--accent); }
+  @media (max-width: 680px) {
+    .wrap { padding: 40px 20px 60px; }
+    .controls { flex-direction: column; align-items: stretch; }
+  }
 </style>
 </head>
 <body>
@@ -235,7 +274,7 @@
   <header>
     <div class="eyebrow">ramophalatse / repos</div>
     <h1>Project directory</h1>
-    <div class="sub">Live index of public repos, pulled straight from the GitHub API. Click through to the running site where one exists, otherwise the source.</div>
+    <div class="sub">Every public repo, one page. Rendered when it's live, source when it isn't.</div>
   </header>
 
   <div class="controls">
