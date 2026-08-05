@@ -386,33 +386,50 @@
     return "just now";
   }
 
-  function cacheGet(key, ttlMs) {
+  const FRESH_TTL = 30 * 60 * 1000;   // treat cache as good, skip the network call
+  const STALE_TTL = 24 * 60 * 60 * 1000; // still usable as a fallback if the network call fails
+
+  function cacheRead(key) {
     try {
-      const raw = sessionStorage.getItem(key);
+      const raw = localStorage.getItem(key);
       if (!raw) return null;
-      const { t, v } = JSON.parse(raw);
-      if (Date.now() - t > ttlMs) return null;
-      return v;
+      return JSON.parse(raw); // { t, v }
     } catch { return null; }
   }
 
   function cacheSet(key, v) {
-    try { sessionStorage.setItem(key, JSON.stringify({ t: Date.now(), v })); } catch {}
+    try { localStorage.setItem(key, JSON.stringify({ t: Date.now(), v })); } catch {}
+  }
+
+  // Fetches JSON with a cache-first strategy: fresh cache short-circuits the
+  // network entirely; a failed/rate-limited fetch falls back to stale cache
+  // (any age) rather than showing nothing, since the GitHub API's
+  // unauthenticated rate limit (60 req/hr per IP) is easy to exhaust.
+  async function fetchCached(key, url, parse) {
+    const cached = cacheRead(key);
+    if (cached && Date.now() - cached.t < FRESH_TTL) return cached.v;
+    try {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(`${res.status}`);
+      const data = await res.json();
+      const value = parse(data);
+      cacheSet(key, value);
+      return value;
+    } catch (err) {
+      if (cached && Date.now() - cached.t < STALE_TTL) return cached.v;
+      throw err;
+    }
   }
 
   async function fetchRepoFiles(repo) {
-    const cacheKey = `ghfiles:${repo.name}`;
-    const cached = cacheGet(cacheKey, 10 * 60 * 1000);
-    if (cached) return cached;
     try {
-      const res = await fetch(`https://api.github.com/repos/${USERNAME}/${repo.name}/contents`);
-      if (!res.ok) return [];
-      const data = await res.json();
-      const htmlFiles = Array.isArray(data)
-        ? data.filter(f => f.type === "file" && /\.html?$/i.test(f.name)).map(f => f.name)
-        : [];
-      cacheSet(cacheKey, htmlFiles);
-      return htmlFiles;
+      return await fetchCached(
+        `ghfiles:${repo.name}`,
+        `https://api.github.com/repos/${USERNAME}/${repo.name}/contents`,
+        data => Array.isArray(data)
+          ? data.filter(f => f.type === "file" && /\.html?$/i.test(f.name)).map(f => f.name)
+          : []
+      );
     } catch {
       return [];
     }
@@ -494,10 +511,11 @@
 
   async function load() {
     try {
-      const res = await fetch(`https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`);
-      if (!res.ok) throw new Error(`GitHub API returned ${res.status}`);
-      const data = await res.json();
-      repos = data.filter(r => !r.fork);
+      repos = await fetchCached(
+        "ghrepos",
+        `https://api.github.com/users/${USERNAME}/repos?per_page=100&sort=updated`,
+        data => data.filter(r => !r.fork)
+      );
       updatedEl.textContent = `fetched ${new Date().toLocaleString()}`;
       render();
 
@@ -506,7 +524,11 @@
       }));
       render();
     } catch (err) {
-      gridEl.innerHTML = `<div class="state">couldn't load repos (${escapeHtml(err.message)}). <a href="https://github.com/${USERNAME}?tab=repositories">view on GitHub</a></div>`;
+      const rateLimited = String(err.message) === "403";
+      const msg = rateLimited
+        ? "GitHub's API rate limit was hit, try again in a few minutes"
+        : `couldn't load repos (${escapeHtml(err.message)})`;
+      gridEl.innerHTML = `<div class="state">${msg}. <a href="https://github.com/${USERNAME}?tab=repositories">view on GitHub</a></div>`;
     }
   }
 
