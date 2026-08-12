@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Open Brain — Authorize</title>
+<meta name="robots" content="noindex">
+<style>
+  body { font-family: -apple-system, system-ui, sans-serif; max-width: 420px; margin: 80px auto; padding: 0 16px; color: #1a1a1a; }
+  h1 { font-size: 1.2rem; }
+  input[type=password] { width: 100%; padding: 10px; font-size: 1rem; box-sizing: border-box; margin: 12px 0; }
+  button { padding: 10px 20px; font-size: 1rem; cursor: pointer; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  p { color: #555; font-size: 0.9rem; }
+  #error { color: #b00020; font-size: 0.9rem; margin-top: 8px; display: none; }
+  #status { color: #555; font-size: 0.9rem; margin-top: 8px; display: none; }
+</style>
+</head>
+<body>
+  <h1>Authorize access to Open Brain</h1>
+  <p id="intro">A client is requesting access to your Open Brain memory store. Enter your Open Brain authorize secret to approve.</p>
+  <form id="authForm">
+    <input type="password" id="secret" name="secret" placeholder="Authorize secret" autofocus required>
+    <button type="submit" id="submitBtn">Authorize</button>
+  </form>
+  <div id="status"></div>
+  <div id="error"></div>
+
+<script>
+  const AUTHORIZE_URL = "https://ckjxebkncqbiecopwnvb.supabase.co/functions/v1/open-brain-mcp/authorize";
+  const REQUIRED_PARAMS = ["client_id", "redirect_uri", "code_challenge"];
+
+  const params = new URLSearchParams(window.location.search);
+  const form = document.getElementById("authForm");
+  const errorEl = document.getElementById("error");
+  const statusEl = document.getElementById("status");
+  const submitBtn = document.getElementById("submitBtn");
+
+  function showError(msg) {
+    errorEl.textContent = msg;
+    errorEl.style.display = "block";
+    statusEl.style.display = "none";
+  }
+
+  function showStatus(msg) {
+    statusEl.textContent = msg;
+    statusEl.style.display = "block";
+    errorEl.style.display = "none";
+  }
+
+  const missing = REQUIRED_PARAMS.filter((p) => !params.get(p));
+  if (missing.length) {
+    form.style.display = "none";
+    document.getElementById("intro").style.display = "none";
+    showError("Missing required OAuth parameters: " + missing.join(", ") + ". Reopen this page from the connecting app.");
+  }
+
+  const codeChallengeMethod = params.get("code_challenge_method") || "S256";
+  if (codeChallengeMethod !== "S256") {
+    form.style.display = "none";
+    document.getElementById("intro").style.display = "none";
+    showError("Only S256 code_challenge_method is supported.");
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    errorEl.style.display = "none";
+    submitBtn.disabled = true;
+    showStatus("Authorizing…");
+
+    const payload = {
+      secret: document.getElementById("secret").value,
+      client_id: params.get("client_id") || "",
+      redirect_uri: params.get("redirect_uri") || "",
+      state: params.get("state") || "",
+      code_challenge: params.get("code_challenge") || "",
+      resource: params.get("resource") || "",
+    };
+
+    try {
+      const resp = await fetch(AUTHORIZE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const data = await resp.json().catch(() => ({}));
+
+      if (resp.ok && data.redirect_uri) {
+        showStatus("Authorized — redirecting…");
+        window.location.href = data.redirect_uri;
+        return;
+      }
+
+      submitBtn.disabled = false;
+      document.getElementById("secret").value = "";
+      showError(data.error_description || data.error || "Authorization failed (" + resp.status + ").");
+    } catch (err) {
+      submitBtn.disabled = false;
+      showError("Network error contacting the authorization server. Try again.");
+    }
+  });
+</script>
+</body>
+</html>
