@@ -207,6 +207,17 @@
     cursor: pointer;
     transition: opacity 0.15s ease, r 0.15s ease;
   }
+  #graph-svg .node circle.search-match {
+    animation: node-pulse-glow 1.6s ease-in-out infinite;
+  }
+  @keyframes node-pulse-glow {
+    0%, 100% {
+      filter: drop-shadow(0 0 2px #a855f7) drop-shadow(0 0 2px color-mix(in oklab, #a855f7 60%, transparent));
+    }
+    50% {
+      filter: drop-shadow(0 0 6px #a855f7) drop-shadow(0 0 12px color-mix(in oklab, #a855f7 70%, transparent));
+    }
+  }
   #graph-svg text.node-label {
     font-family: var(--mono);
     font-size: 9px;
@@ -1140,7 +1151,8 @@
     // this and clearHighlight() restores it, so search and hover compose.
     function applyBaseOpacity() {
       nodeLayer.selectAll("g.node").select("circle")
-        .style("opacity", d => !searchMatchIds || searchMatchIds.has(d.id) ? 1 : 0.12);
+        .style("opacity", d => !searchMatchIds || searchMatchIds.has(d.id) ? 1 : 0.12)
+        .classed("search-match", d => !!searchMatchIds && searchMatchIds.has(d.id));
       linkLayer.selectAll("line.link")
         .attr("stroke-opacity", d => !searchMatchIds || searchMatchIds.has(d.source.id ?? d.source) || searchMatchIds.has(d.target.id ?? d.target) ? 0.45 : 0.05);
     }
