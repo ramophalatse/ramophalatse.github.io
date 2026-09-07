@@ -142,6 +142,33 @@
     70% { box-shadow: 0 0 0 7px transparent; }
     100% { box-shadow: 0 0 0 0 transparent; }
   }
+  .mode-toggle {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px;
+    background: var(--elevated);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    gap: 2px;
+  }
+  .mode-toggle button {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 12px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
+    white-space: nowrap;
+  }
+  .mode-toggle button.active {
+    background: var(--card);
+    color: var(--text);
+    box-shadow: 0 1px 2px rgba(20,22,28,.08);
+  }
   .graph-search-row {
     position: relative;
     display: flex;
@@ -384,6 +411,89 @@
     font-size: 11px;
     cursor: pointer;
     text-decoration: underline;
+  }
+  .panel-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .panel-badge {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .panel-badge.state-open { border-color: var(--accent); color: var(--accent); }
+  .panel-badge.state-parked { border-color: #eab308; color: #eab308; }
+  .panel-badge.state-killed { border-color: var(--faint); color: var(--faint); text-decoration: line-through; }
+  .panel-badge.state-promoted { border-color: #a855f7; color: #a855f7; }
+  .panel-badge.ice-guessed { font-style: italic; }
+  .ice-picker {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: var(--elevated);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 12px;
+  }
+  .ice-picker.open { display: flex; }
+  .ice-dim { display: flex; flex-direction: column; gap: 4px; }
+  .ice-dim-label { font-family: var(--mono); font-size: 11px; color: var(--text); font-weight: 600; }
+  .ice-options { display: flex; gap: 6px; }
+  .ice-opt {
+    flex: 1;
+    text-align: left;
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 6px 8px;
+    cursor: pointer;
+    font-family: var(--sans);
+  }
+  .ice-opt .ice-opt-label { font-size: 11px; font-weight: 600; color: var(--text); display: block; }
+  .ice-opt .ice-opt-anchor { font-size: 10px; color: var(--muted); display: block; margin-top: 2px; line-height: 1.35; }
+  .ice-opt.selected { border-color: var(--accent); background: color-mix(in oklab, var(--accent) 12%, var(--card)); }
+  .ice-picker-actions { display: flex; gap: 8px; justify-content: flex-end; }
+  .ice-btn {
+    border: 1px solid var(--border);
+    background: var(--card);
+    color: var(--text);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+  }
+  .ice-btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .promote-form {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+    padding: 12px;
+    margin-bottom: 10px;
+    background: var(--elevated);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-size: 12px;
+  }
+  .promote-form.open { display: flex; }
+  .promote-form label { font-family: var(--mono); font-size: 11px; color: var(--text); display: flex; flex-direction: column; gap: 4px; }
+  .promote-form select, .promote-form input {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 6px 8px;
+    font-family: var(--sans);
+    font-size: 12px;
   }
   .graph-panel .panel-summary {
     font-size: 13px;
@@ -679,8 +789,12 @@
     <div class="graph-head">
       <div class="graph-title">
         <div class="eyebrow">OpenBrain / live</div>
-        <h2>Thought graph</h2>
-        <div class="graph-sub">Every saved thought and the relations detected between them, polled straight from OpenBrain.</div>
+        <h2 id="graph-h2">Thought graph</h2>
+        <div class="graph-sub" id="graph-sub-text">Every saved thought and the relations detected between them, polled straight from OpenBrain.</div>
+      </div>
+      <div class="mode-toggle" id="mode-toggle" role="tablist">
+        <button type="button" id="mode-thoughts" class="active" role="tab" aria-selected="true">Thought Graph</button>
+        <button type="button" id="mode-backlog" role="tab" aria-selected="false">Backlog</button>
       </div>
       <div class="graph-status" id="graph-status">
         <span class="live-dot"></span>
@@ -688,7 +802,7 @@
       </div>
     </div>
     <div class="graph-search-row">
-      <input type="search" id="graph-search" class="graph-search-input" placeholder="Semantic search — e.g. “Money Metrics”…" />
+      <input type="search" id="graph-search" class="graph-search-input" placeholder="Search — e.g. “Money Metrics”…" />
       <span class="graph-search-status" id="graph-search-status"></span>
     </div>
     <div class="graph-frame">
@@ -717,7 +831,8 @@
       <aside class="graph-panel" id="graph-panel">
         <button class="panel-close" id="panel-close" type="button" aria-label="Close">✕</button>
         <span class="panel-scope" id="panel-scope"></span>
-        <div class="panel-actions">
+        <div class="panel-badges" id="panel-badges"></div>
+        <div class="panel-actions" id="panel-actions-graph">
           <button class="panel-action-btn" id="panel-copy" type="button" title="Copy a Claude Code prompt for this thought">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
             <span class="action-label">Copy prompt</span>
@@ -730,6 +845,85 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m3 0-1 14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 6h16Z"/></svg>
             <span class="action-label">Delete</span>
           </button>
+        </div>
+        <!-- Placeholder Feather-style icons below; swap for Ramo-supplied SVGs by id when provided. -->
+        <div class="panel-actions" id="panel-actions-backlog" style="display:none">
+          <button class="panel-action-btn" id="panel-copy-bl" type="button" title="Copy a Claude Code prompt for this idea">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="action-label">Copy prompt</span>
+          </button>
+          <button class="panel-action-btn" id="panel-park" type="button" title="Park — still wanted, not now">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></svg>
+            <span class="action-label">Park</span>
+          </button>
+          <button class="panel-action-btn" id="panel-rescore" type="button" title="Rescore this idea's ICE">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            <span class="action-label">Rescore</span>
+          </button>
+          <button class="panel-action-btn" id="panel-keep" type="button" title="Keep — leave open, no change">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <span class="action-label">Keep</span>
+          </button>
+          <button class="panel-action-btn danger" id="panel-kill" type="button" title="Kill — no longer wanted">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+            <span class="action-label">Kill</span>
+          </button>
+          <button class="panel-action-btn" id="panel-promote" type="button" title="Promote to the Open Engine Queue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="16 12 12 8 8 12"/><line x1="12" y1="16" x2="12" y2="8"/></svg>
+            <span class="action-label">Promote…</span>
+          </button>
+        </div>
+        <div class="ice-picker" id="ice-picker">
+          <div class="ice-dim" data-dim="importance">
+            <span class="ice-dim-label">Importance — how much this matters</span>
+            <div class="ice-options">
+              <button type="button" class="ice-opt" data-val="High"><span class="ice-opt-label">High</span><span class="ice-opt-anchor">Significant positive outcome, or serious consequences if neglected</span></button>
+              <button type="button" class="ice-opt" data-val="Medium"><span class="ice-opt-label">Medium</span><span class="ice-opt-anchor">Useful but not critical</span></button>
+              <button type="button" class="ice-opt" data-val="Low"><span class="ice-opt-label">Low</span><span class="ice-opt-anchor">Nice-to-have</span></button>
+            </div>
+          </div>
+          <div class="ice-dim" data-dim="confidence">
+            <span class="ice-dim-label">Confidence — how sure this is the right thing to do</span>
+            <div class="ice-options">
+              <button type="button" class="ice-opt" data-val="High"><span class="ice-opt-label">High</span><span class="ice-opt-anchor">You'd back it today without further thought</span></button>
+              <button type="button" class="ice-opt" data-val="Medium"><span class="ice-opt-label">Medium</span><span class="ice-opt-anchor">Probably right, but there are open unknowns</span></button>
+              <button type="button" class="ice-opt" data-val="Low"><span class="ice-opt-label">Low</span><span class="ice-opt-anchor">A hunch worth keeping rather than a decision</span></button>
+            </div>
+          </div>
+          <div class="ice-dim" data-dim="ease">
+            <span class="ice-dim-label">Ease — how easily it could be done</span>
+            <div class="ice-options">
+              <button type="button" class="ice-opt" data-val="High"><span class="ice-opt-label">High</span><span class="ice-opt-anchor">Under an hour, or a single obvious step</span></button>
+              <button type="button" class="ice-opt" data-val="Medium"><span class="ice-opt-label">Medium</span><span class="ice-opt-anchor">A focused session or two</span></button>
+              <button type="button" class="ice-opt" data-val="Low"><span class="ice-opt-label">Low</span><span class="ice-opt-anchor">Days of work, or blocked on something else first</span></button>
+            </div>
+          </div>
+          <div class="ice-picker-actions">
+            <button type="button" class="ice-btn" id="ice-cancel">Cancel</button>
+            <button type="button" class="ice-btn primary" id="ice-save">Save score</button>
+          </div>
+        </div>
+        <div class="promote-form" id="promote-form">
+          <label>Status
+            <select id="promote-status">
+              <option value="Agent Todo">Agent Todo — enough scope to act on</option>
+              <option value="Agent Needs Input">Agent Needs Input — one-liner, needs scoping</option>
+            </select>
+          </label>
+          <label>Agent code
+            <select id="promote-agent">
+              <option value="all-agents">all-agents</option>
+              <option value="ramo-claude">ramo-claude</option>
+              <option value="ramo-kimi">ramo-kimi</option>
+              <option value="ramo-claude-cloud">ramo-claude-cloud</option>
+              <option value="ramophalatse-antigravity">ramophalatse-antigravity</option>
+              <option value="echo">echo</option>
+            </select>
+          </label>
+          <div class="ice-picker-actions">
+            <button type="button" class="ice-btn" id="promote-cancel">Cancel</button>
+            <button type="button" class="ice-btn primary" id="promote-confirm">Create queue row</button>
+          </div>
         </div>
         <div class="panel-summary" id="panel-summary"></div>
         <div class="panel-content" id="panel-content"></div>
@@ -980,6 +1174,94 @@
     let currentAdjacency = new Map();  // recomputed on every renderGraph, referenced live by hover handlers
     let searchMatchIds = null;         // Set of matching ids, or null when no active search
 
+    // ---- Mode: Thought Graph vs Backlog --------------------------------
+    // Both modes poll the same public-thoughts-graph endpoint (it already
+    // returns metadata per thought); Backlog just filters to
+    // metadata.type === "backlog_idea" client-side and re-renders with the
+    // same D3 force graph, node/link styling and panel used by Thought
+    // Graph. Raw poll data is cached so switching modes is instant and
+    // doesn't need a refetch.
+    const MODE_KEY = "graph-mode";
+    let graphMode = (localStorage.getItem(MODE_KEY) === "backlog") ? "backlog" : "thoughts";
+    let rawThoughts = [];
+    let rawRelations = [];
+
+    const modeThoughtsBtn = document.getElementById("mode-thoughts");
+    const modeBacklogBtn = document.getElementById("mode-backlog");
+    const graphH2El = document.getElementById("graph-h2");
+    const graphSubTextEl = document.getElementById("graph-sub-text");
+    const panelActionsGraphEl = document.getElementById("panel-actions-graph");
+    const panelActionsBacklogEl = document.getElementById("panel-actions-backlog");
+    const panelBadgesEl = document.getElementById("panel-badges");
+
+    const MODE_COPY = {
+      thoughts: {
+        h2: "Thought graph",
+        sub: "Every saved thought and the relations detected between them, polled straight from OpenBrain.",
+        placeholder: "Search — e.g. “Money Metrics”…",
+        empty: "no thoughts yet",
+      },
+      backlog: {
+        h2: "Backlog",
+        sub: "Ideas captured to OpenBrain, presented the same way as the thought graph. Click a node to triage it.",
+        placeholder: "Search the backlog…",
+        empty: "no open backlog ideas yet",
+      },
+    };
+
+    function isBacklogIdea(t) {
+      return !!(t.metadata && t.metadata.type === "backlog_idea");
+    }
+
+    function filterForMode(thoughts, relations) {
+      if (graphMode !== "backlog") return { thoughts, relations };
+      const filteredThoughts = thoughts.filter(isBacklogIdea);
+      const ids = new Set(filteredThoughts.map(t => t.id));
+      const filteredRelations = relations.filter(r => ids.has(r.source_id) && ids.has(r.target_id));
+      return { thoughts: filteredThoughts, relations: filteredRelations };
+    }
+
+    function applyFilteredData(thoughts, relations) {
+      rawThoughts = thoughts;
+      rawRelations = relations;
+      const { thoughts: t, relations: r } = filterForMode(thoughts, relations);
+      applyData(t, r);
+    }
+
+    function updateModeUI() {
+      const copy = MODE_COPY[graphMode];
+      graphH2El.textContent = copy.h2;
+      graphSubTextEl.textContent = copy.sub;
+      searchInputEl.placeholder = copy.placeholder;
+      emptyEl.dataset.emptyText = copy.empty;
+      modeThoughtsBtn.classList.toggle("active", graphMode === "thoughts");
+      modeBacklogBtn.classList.toggle("active", graphMode === "backlog");
+      modeThoughtsBtn.setAttribute("aria-selected", String(graphMode === "thoughts"));
+      modeBacklogBtn.setAttribute("aria-selected", String(graphMode === "backlog"));
+    }
+
+    function switchMode(mode) {
+      if (mode === graphMode) return;
+      graphMode = mode;
+      localStorage.setItem(MODE_KEY, mode);
+      updateModeUI();
+      panelEl.classList.remove("open");
+      openPanelId = null;
+      openPanelNode = null;
+      if (searchInputEl.value.trim()) {
+        searchInputEl.value = "";
+        searchMatchIds = null;
+        searchStatusEl.textContent = "";
+      }
+      userInteracted = false; // let the new node set auto-fit once
+      nodesById = new Map();  // don't carry stale positions across an unrelated node set
+      applyFilteredData(rawThoughts, rawRelations);
+    }
+
+    modeThoughtsBtn.addEventListener("click", () => switchMode("thoughts"));
+    modeBacklogBtn.addEventListener("click", () => switchMode("backlog"));
+    updateModeUI();
+
     function dims() {
       const r = container.getBoundingClientRect();
       return { w: r.width, h: r.height };
@@ -1065,6 +1347,7 @@
           existing.content = t.content;
           existing.scope = t.scope;
           existing.created_at = t.created_at;
+          existing.metadata = t.metadata || null;
           existing.degree = degree.get(t.id) || 0;
         } else {
           nodesById.set(t.id, {
@@ -1072,6 +1355,7 @@
             content: t.content,
             scope: t.scope,
             created_at: t.created_at,
+            metadata: t.metadata || null,
             degree: degree.get(t.id) || 0,
             x: (Math.random() - 0.5) * 40,
             y: (Math.random() - 0.5) * 40,
@@ -1091,7 +1375,10 @@
     function renderGraph() {
       const nodes = [...nodesById.values()];
       emptyEl.style.display = nodes.length ? "none" : "flex";
-      if (!nodes.length) return;
+      if (!nodes.length) {
+        emptyEl.textContent = emptyEl.dataset.emptyText || "nothing to show";
+        return;
+      }
 
       currentAdjacency = new Map();
       links.forEach(l => {
@@ -1192,10 +1479,40 @@
     let openPanelId = null;
     let openPanelNode = null;
 
+    function stateBadgeLabel(state) {
+      return { open: "open", parked: "parked", killed: "killed", promoted: "promoted" }[state] || state || "open";
+    }
+
+    function renderBadges(d) {
+      panelBadgesEl.innerHTML = "";
+      const meta = d.metadata;
+      if (!meta || meta.type !== "backlog_idea") return;
+      const state = meta.state || "open";
+      const badges = [`<span class="panel-badge state-${state}">${escapeHtml(stateBadgeLabel(state))}</span>`];
+      if (typeof meta.ice_score === "number") {
+        const guessed = meta.ice_source !== "operator";
+        badges.push(`<span class="panel-badge${guessed ? " ice-guessed" : ""}">ICE ${meta.ice_score}${guessed ? " (guessed)" : " (operator)"}</span>`);
+      }
+      if (meta.domain && meta.domain !== "unknown") {
+        badges.push(`<span class="panel-badge">${escapeHtml(meta.domain)}</span>`);
+      }
+      panelBadgesEl.innerHTML = badges.join("");
+    }
+
+    function closeSubforms() {
+      document.getElementById("ice-picker").classList.remove("open");
+      document.getElementById("promote-form").classList.remove("open");
+    }
+
     function openPanel(d) {
       openPanelId = d.id;
       openPanelNode = d;
+      closeSubforms();
       panelScopeEl.textContent = d.scope || "unscoped";
+      renderBadges(d);
+      const inBacklogMode = graphMode === "backlog";
+      panelActionsGraphEl.style.display = inBacklogMode ? "none" : "flex";
+      panelActionsBacklogEl.style.display = inBacklogMode ? "flex" : "none";
       panelSummaryEl.textContent = "Summarizing…";
       panelSummaryEl.classList.add("pending");
       panelContentEl.textContent = d.content || "";
@@ -1259,21 +1576,25 @@
       return data;
     }
 
-    document.getElementById("panel-copy").addEventListener("click", () => {
-      if (!openPanelNode) return;
-      const prompt = `Here's an OpenBrain thought (id: ${openPanelNode.id}):\n\n${openPanelNode.content}\n\n---\n\nReview this thought and take whatever action makes sense given its content (e.g. update related code, act on a to-do, apply a stated rule) in the context of the current repository.`;
-      const btn = document.getElementById("panel-copy");
-      const label = btn.querySelector(".action-label");
-      const original = label.textContent;
-      navigator.clipboard.writeText(prompt).then(() => {
-        label.textContent = "Copied!";
-        btn.classList.add("active");
-        setTimeout(() => { label.textContent = original; btn.classList.remove("active"); }, 1500);
-      }).catch(() => {
-        label.textContent = "Copy failed";
-        setTimeout(() => { label.textContent = original; }, 1500);
+    function wireCopyPrompt(btnId) {
+      document.getElementById(btnId).addEventListener("click", () => {
+        if (!openPanelNode) return;
+        const prompt = `Here's an OpenBrain thought (id: ${openPanelNode.id}):\n\n${openPanelNode.content}\n\n---\n\nReview this thought and take whatever action makes sense given its content (e.g. update related code, act on a to-do, apply a stated rule) in the context of the current repository.`;
+        const btn = document.getElementById(btnId);
+        const label = btn.querySelector(".action-label");
+        const original = label.textContent;
+        navigator.clipboard.writeText(prompt).then(() => {
+          label.textContent = "Copied!";
+          btn.classList.add("active");
+          setTimeout(() => { label.textContent = original; btn.classList.remove("active"); }, 1500);
+        }).catch(() => {
+          label.textContent = "Copy failed";
+          setTimeout(() => { label.textContent = original; }, 1500);
+        });
       });
-    });
+    }
+    wireCopyPrompt("panel-copy");
+    wireCopyPrompt("panel-copy-bl");
 
     document.getElementById("panel-delete").addEventListener("click", async () => {
       if (!openPanelNode) return;
@@ -1284,6 +1605,121 @@
         panelEl.classList.remove("open");
         openPanelId = null;
         openPanelNode = null;
+        poll(true);
+      }
+    });
+
+    // ---- Backlog triage actions -------------------------------------
+    document.getElementById("panel-park").addEventListener("click", async () => {
+      if (!openPanelNode) return;
+      const result = await callAdmin("park", { id: openPanelNode.id });
+      if (result && result.ok) { panelEl.classList.remove("open"); openPanelId = null; openPanelNode = null; poll(true); }
+    });
+
+    document.getElementById("panel-kill").addEventListener("click", async () => {
+      if (!openPanelNode) return;
+      const ok = confirm(`Kill this idea?\n\n"${snippetOf(openPanelNode.content, 120)}"\n\nContent is preserved, just marked no longer wanted.`);
+      if (!ok) return;
+      const result = await callAdmin("kill", { id: openPanelNode.id });
+      if (result && result.ok) { panelEl.classList.remove("open"); openPanelId = null; openPanelNode = null; poll(true); }
+    });
+
+    // Keep is a deliberate no-op by the backlog skill's own design: leave
+    // open, no metadata change, so no server call is made here at all.
+    document.getElementById("panel-keep").addEventListener("click", () => {
+      const btn = document.getElementById("panel-keep");
+      const label = btn.querySelector(".action-label");
+      const original = label.textContent;
+      label.textContent = "Kept";
+      btn.classList.add("active");
+      setTimeout(() => {
+        label.textContent = original;
+        btn.classList.remove("active");
+        panelEl.classList.remove("open");
+        openPanelId = null;
+        openPanelNode = null;
+      }, 700);
+    });
+
+    // ---- Rescore: same three-dimension ICE picker, anchors included ---
+    const icePickerEl = document.getElementById("ice-picker");
+    const iceSelections = { importance: null, confidence: null, ease: null };
+
+    function resetIcePicker() {
+      iceSelections.importance = null;
+      iceSelections.confidence = null;
+      iceSelections.ease = null;
+      icePickerEl.querySelectorAll(".ice-opt").forEach(b => b.classList.remove("selected"));
+      updateIceSaveState();
+    }
+    function updateIceSaveState() {
+      const ready = iceSelections.importance && iceSelections.confidence && iceSelections.ease;
+      document.getElementById("ice-save").disabled = !ready;
+      document.getElementById("ice-save").style.opacity = ready ? 1 : 0.5;
+    }
+    icePickerEl.querySelectorAll(".ice-dim").forEach(dimEl => {
+      const dim = dimEl.dataset.dim;
+      dimEl.querySelectorAll(".ice-opt").forEach(optEl => {
+        optEl.addEventListener("click", () => {
+          dimEl.querySelectorAll(".ice-opt").forEach(o => o.classList.remove("selected"));
+          optEl.classList.add("selected");
+          iceSelections[dim] = optEl.dataset.val;
+          updateIceSaveState();
+        });
+      });
+    });
+
+    document.getElementById("panel-rescore").addEventListener("click", () => {
+      if (!openPanelNode) return;
+      document.getElementById("promote-form").classList.remove("open");
+      resetIcePicker();
+      icePickerEl.classList.add("open");
+    });
+    document.getElementById("ice-cancel").addEventListener("click", () => {
+      icePickerEl.classList.remove("open");
+      resetIcePicker();
+    });
+    document.getElementById("ice-save").addEventListener("click", async () => {
+      if (!openPanelNode) return;
+      if (!iceSelections.importance || !iceSelections.confidence || !iceSelections.ease) return;
+      const result = await callAdmin("rescore", {
+        id: openPanelNode.id,
+        importance: iceSelections.importance,
+        confidence: iceSelections.confidence,
+        ease: iceSelections.ease,
+        iceSource: "operator",
+      });
+      icePickerEl.classList.remove("open");
+      resetIcePicker();
+      if (result && result.ok) {
+        openPanelNode.metadata = result.metadata;
+        renderBadges(openPanelNode);
+        poll(true);
+      }
+    });
+
+    // ---- Promote: creates a real Open Engine Queue row ----------------
+    const promoteFormEl = document.getElementById("promote-form");
+    document.getElementById("panel-promote").addEventListener("click", () => {
+      if (!openPanelNode) return;
+      icePickerEl.classList.remove("open");
+      promoteFormEl.classList.add("open");
+    });
+    document.getElementById("promote-cancel").addEventListener("click", () => {
+      promoteFormEl.classList.remove("open");
+    });
+    document.getElementById("promote-confirm").addEventListener("click", async () => {
+      if (!openPanelNode) return;
+      const ok = confirm(`Promote this idea to the Open Engine Queue?\n\n"${snippetOf(openPanelNode.content, 120)}"\n\nThis creates a real Notion row and cannot be undone from here.`);
+      if (!ok) return;
+      const status = document.getElementById("promote-status").value;
+      const agentCode = document.getElementById("promote-agent").value;
+      const result = await callAdmin("promote", { id: openPanelNode.id, status, agentCode });
+      promoteFormEl.classList.remove("open");
+      if (result && result.ok) {
+        openPanelNode.metadata = result.metadata;
+        renderBadges(openPanelNode);
+        alert(`Promoted. Queue row: ${result.url}`);
         poll(true);
       }
     });
@@ -1398,12 +1834,12 @@
         if (!res.ok) throw new Error(String(res.status));
         const data = await res.json();
         cacheSet(CACHE_KEY, data);
-        applyData(data.thoughts || [], data.relations || []);
+        applyFilteredData(data.thoughts || [], data.relations || []);
         setStatus(data.thoughts.length, data.relations.length, false);
       } catch (err) {
         const cached = cacheRead(CACHE_KEY);
         if (cached && cached.v) {
-          applyData(cached.v.thoughts || [], cached.v.relations || []);
+          applyFilteredData(cached.v.thoughts || [], cached.v.relations || []);
           setStatus(cached.v.thoughts.length, cached.v.relations.length, true);
         } else {
           emptyEl.textContent = "couldn't load the thought graph";
