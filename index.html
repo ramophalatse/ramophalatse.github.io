@@ -227,6 +227,7 @@
     cursor: grab;
   }
   #graph-svg:active { cursor: grabbing; }
+  #graph-svg.cmd-zoom { cursor: ns-resize; }
   #graph-svg .link { stroke-linecap: round; }
   #graph-svg .node circle {
     stroke: var(--card);
@@ -301,6 +302,158 @@
     opacity: 1;
     margin-top: 4px;
   }
+  /* Cluster labels sit in an HTML overlay rather than inside the SVG zoom
+     layer, so text stays at a fixed size while the graph scales and the
+     drill-down controls can be ordinary buttons. */
+  .cluster-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .cluster-label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: auto;
+    cursor: pointer;
+    font-family: var(--mono);
+    color: var(--text);
+    background: color-mix(in oklab, var(--card) 86%, transparent);
+    backdrop-filter: blur(6px);
+    border: 1px solid color-mix(in oklab, var(--cl-color, var(--border-strong)) 55%, transparent);
+    border-radius: 10px;
+    padding: 5px 9px;
+    white-space: nowrap;
+    animation: cluster-label-in 0.2s ease both;
+  }
+  @keyframes cluster-label-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .cluster-label.pinned {
+    border-color: var(--cl-color, var(--border-strong));
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--cl-color, var(--accent)) 14%, transparent);
+  }
+  .cluster-head {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 11px;
+    letter-spacing: 0.01em;
+  }
+  .cluster-name { color: var(--cl-color, var(--text)); }
+  .cluster-qualifier {
+    color: var(--muted);
+    font-size: 10px;
+    margin-left: -2px;
+  }
+  .cluster-qualifier::before { content: "· "; color: var(--faint); }
+  .cluster-count {
+    color: var(--faint);
+    font-size: 10px;
+    font-variant-numeric: tabular-nums;
+  }
+  .cluster-up {
+    border: 0;
+    background: none;
+    padding: 0 2px;
+    margin-left: -3px;
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 13px;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .cluster-up:hover { color: var(--text); }
+  .cluster-crumbs {
+    margin-top: 3px;
+    font-size: 9px;
+    color: var(--faint);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .cluster-track {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 2px;
+    margin-top: 8px;
+    padding: 0 2px;
+  }
+  .cluster-track::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    top: 5px;
+    height: 1.5px;
+    background: color-mix(in oklab, var(--cl-color, var(--faint)) 45%, transparent);
+  }
+  .cluster-tick {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 26px;
+    padding: 0 2px;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-family: var(--mono);
+    font-size: 9px;
+    color: var(--muted);
+  }
+  .cluster-tick .tick-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--card);
+    border: 1.5px solid var(--cl-color, var(--faint));
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  .cluster-tick:hover .tick-dot,
+  .cluster-tick:focus-visible .tick-dot { transform: scale(1.35); }
+  .cluster-tick.selected .tick-dot {
+    background: var(--cl-color, var(--accent));
+    transform: scale(1.35);
+  }
+  .cluster-tick.selected { color: var(--text); }
+  .cluster-tick .tick-label { line-height: 1.1; }
+  .cluster-tick .tick-count {
+    font-size: 8px;
+    color: var(--faint);
+    font-variant-numeric: tabular-nums;
+  }
+  .cluster-toggle {
+    flex-shrink: 0;
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--card);
+    color: var(--muted);
+    font-family: var(--mono);
+    font-size: 11px;
+    cursor: pointer;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .cluster-toggle:hover { color: var(--text); }
+  .cluster-toggle[aria-pressed="true"] {
+    color: var(--text);
+    border-color: var(--border-strong);
+  }
+  .cluster-toggle .dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    margin-right: 6px;
+    border-radius: 50%;
+    background: var(--faint);
+    vertical-align: middle;
+  }
+  .cluster-toggle[aria-pressed="true"] .dot { background: #a855f7; }
   .graph-empty {
     position: absolute;
     inset: 0;
@@ -524,6 +677,7 @@
     .graph-frame { height: 380px; }
     .graph-panel { width: calc(100% - 28px); }
     .graph-search-row { flex-direction: column; align-items: stretch; }
+    .cluster-toggle { align-self: flex-start; }
   }
   .header-text {
     display: flex;
@@ -803,10 +957,12 @@
     </div>
     <div class="graph-search-row">
       <input type="search" id="graph-search" class="graph-search-input" placeholder="Search — e.g. “Money Metrics”…" />
+      <button type="button" id="cluster-toggle" class="cluster-toggle" aria-pressed="true" title="Show cluster labels once a cluster is big enough on screen"><span class="dot"></span>clusters</button>
       <span class="graph-search-status" id="graph-search-status"></span>
     </div>
     <div class="graph-frame">
       <svg id="graph-svg"></svg>
+      <div class="cluster-layer" id="cluster-layer"></div>
       <div class="graph-empty" id="graph-empty">loading thought graph…</div>
       <div class="ghost-glow purple"></div>
       <span class="ghost-mark purple">Thought Graph</span>
@@ -1255,6 +1411,12 @@
       }
       userInteracted = false; // let the new node set auto-fit once
       nodesById = new Map();  // don't carry stale positions across an unrelated node set
+      dateFilter = null;      // clusters are recomputed for the new node set
+      pinnedClusterKey = null;
+      clusterState = new Map();
+      clusters = [];
+      clusterLayer.replaceChildren();
+      clusterEls = new Map();
       applyFilteredData(rawThoughts, rawRelations);
     }
 
@@ -1267,11 +1429,51 @@
       return { w: r.width, h: r.height };
     }
 
-    const zoom = d3.zoom().scaleExtent([0.15, 4]).on("zoom", (ev) => {
-      zoomLayer.attr("transform", ev.transform);
-      if (ev.sourceEvent) userInteracted = true;
-    });
+    const zoom = d3.zoom().scaleExtent([0.15, 4])
+      .filter((event) => {
+        // Plain scroll/trackpad-pan over the graph falls through to the page instead of
+        // zooming; pinch (and explicit ctrl+wheel) still zooms since those set ctrlKey.
+        if (event.type === "wheel") return event.ctrlKey;
+        // Cmd/Ctrl+drag is reserved for the vertical drag-to-zoom gesture below, so d3
+        // must not also start its own pan drag on that same mousedown.
+        if (event.type === "mousedown" && (event.metaKey || event.ctrlKey)) return false;
+        return !event.button;
+      })
+      .on("zoom", (ev) => {
+        zoomLayer.attr("transform", ev.transform);
+        if (ev.sourceEvent) userInteracted = true;
+        scheduleLabelUpdate(false);
+      });
     svg.call(zoom);
+
+    // Cmd/Ctrl + drag up/down zooms in/out, anchored on the point where the drag started,
+    // so the graph's own zoom never competes with the page's normal scroll.
+    (function setupDragZoom() {
+      let drag = null;
+      svg.on("mousedown.dragzoom", (event) => {
+        if (!(event.metaKey || event.ctrlKey)) return;
+        event.preventDefault();
+        const svgNode = svg.node();
+        const [px, py] = d3.pointer(event, svgNode);
+        drag = { startY: event.clientY, t0: d3.zoomTransform(svgNode), px, py };
+        svg.classed("cmd-zoom", true);
+        d3.select(window)
+          .on("mousemove.dragzoom", (moveEvent) => {
+            if (!drag) return;
+            const dy = drag.startY - moveEvent.clientY; // drag up = zoom in
+            const k = Math.max(0.15, Math.min(4, drag.t0.k * Math.pow(2, dy / 150)));
+            const wx = (drag.px - drag.t0.x) / drag.t0.k;
+            const wy = (drag.py - drag.t0.y) / drag.t0.k;
+            const next = d3.zoomIdentity.translate(drag.px - wx * k, drag.py - wy * k).scale(k);
+            svg.call(zoom.transform, next, null, moveEvent);
+          })
+          .on("mouseup.dragzoom", () => {
+            drag = null;
+            svg.classed("cmd-zoom", false);
+            d3.select(window).on("mousemove.dragzoom", null).on("mouseup.dragzoom", null);
+          });
+      });
+    })();
 
     const simulation = d3.forceSimulation()
       .force("link", d3.forceLink().id(d => d.id).distance(l => l.type === "origin" ? 60 : 80).strength(0.5))
@@ -1319,13 +1521,16 @@
         .attr("x2", d => d.target.x).attr("y2", d => d.target.y);
       nodeLayer.selectAll("g.node")
         .attr("transform", d => `translate(${d.x},${d.y})`);
+      // Labels follow the layout every tick, but the clustering itself only
+      // gets redone periodically — it is O(n) and the blobs move slowly.
+      scheduleLabelUpdate(tickCount % 30 === 0);
     }
 
     function dragBehavior() {
       return d3.drag()
         .on("start", (ev, d) => { if (!ev.active) simulation.alphaTarget(0.15).restart(); d.fx = d.x; d.fy = d.y; })
         .on("drag", (ev, d) => { d.fx = ev.x; d.fy = ev.y; })
-        .on("end", (ev, d) => { if (!ev.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; });
+        .on("end", (ev, d) => { if (!ev.active) simulation.alphaTarget(0); d.fx = null; d.fy = null; scheduleLabelUpdate(true); });
     }
 
     function neighborsOf(id) {
@@ -1431,17 +1636,581 @@
       simulation.alpha(Math.max(simulation.alpha(), 0.35)).restart();
 
       applyBaseOpacity();
+      scheduleLabelUpdate(true);
     }
 
-    // Baseline opacity reflects the active semantic search filter (or full
-    // visibility when there isn't one); hover highlight temporarily overrides
-    // this and clearHighlight() restores it, so search and hover compose.
+    // Baseline opacity reflects the active semantic search filter and the
+    // active cluster date drill-down (or full visibility when there is
+    // neither); hover highlight temporarily overrides this and
+    // clearHighlight() restores it, so all three compose.
+    function passesFilters(id) {
+      if (searchMatchIds && !searchMatchIds.has(id)) return false;
+      if (dateFilter) {
+        if (!dateFilter.ids.has(id)) return false;
+        const n = nodesById.get(id);
+        const t = n ? Date.parse(n.created_at) : NaN;
+        if (!(t >= dateFilter.from && t < dateFilter.to)) return false;
+      }
+      return true;
+    }
+
     function applyBaseOpacity() {
+      const filtered = !!searchMatchIds || !!dateFilter;
       nodeLayer.selectAll("g.node").select("circle")
-        .style("opacity", d => !searchMatchIds || searchMatchIds.has(d.id) ? 1 : 0.12)
-        .classed("search-match", d => !!searchMatchIds && searchMatchIds.has(d.id));
+        .style("opacity", d => !filtered || passesFilters(d.id) ? 1 : 0.12)
+        .classed("search-match", d => filtered && passesFilters(d.id));
       linkLayer.selectAll("line.link")
-        .attr("stroke-opacity", d => !searchMatchIds || searchMatchIds.has(d.source.id ?? d.source) || searchMatchIds.has(d.target.id ?? d.target) ? 0.45 : 0.05);
+        .attr("stroke-opacity", d => !filtered || passesFilters(d.source.id ?? d.source) || passesFilters(d.target.id ?? d.target) ? 0.45 : 0.05);
+    }
+
+    // ---- Cluster labels + date drill-down -------------------------------
+    // The visible "blobs" in a force graph are spatial, not graph-theoretic:
+    // almost every thought sits in one giant connected component, so
+    // connected components would yield a single label. Clusters are therefore
+    // read off the laid-out positions (grid-accelerated single-link
+    // clustering at CLUSTER_EPS, roughly one link length), which is exactly
+    // what the eye groups. Labels are drawn in an HTML overlay above the SVG.
+    const EPS_FACTOR = 1.5;          // × the median nearest-neighbour distance
+    const EPS_MIN = 40, EPS_MAX = 260;
+    const CLUSTER_MIN_SIZE = 5;      // below this a blob isn't worth naming
+    const LABEL_MIN_PX = 70;         // on-screen cluster extent before a name is shown
+    const LABEL_EXPAND_PX = 190;     // ...and before the timeline fits over it
+    const LABEL_MIN_GAP_PX = 74;     // greedy de-overlap between label centres
+    const CLUSTERS_KEY = "graph-clusters-on";
+    const LEVELS = ["year", "month", "week", "day"];
+    const ACRONYMS = new Set(["ai", "ui", "ux", "api", "mcp", "llm", "hf", "kpi", "sql", "cvp", "pdf"]);
+    const WORD_CASE = { openbrain: "OpenBrain", github: "GitHub", nedbank: "Nedbank", higgsfield: "Higgsfield", maru: "Maru", zaka: "Zaka" };
+    const STOPWORDS = new Set(("the a an and or of for to in on at is are was were be been it its this that these those with without from into over under about as by not no but if then than so such can will would should could may might must do does did done have has had he she they them their our your my me i we you it's don't via per new use used using out up down off more most other another each any all some one two three thing things when what which who how why where saved file covers during while before after since because however though still also just even very much many onto within across around between again always never often sometimes being doing having make makes made take takes need needs want wants keep keeps note notes only once next last then there here what's rather instead already yet ever both else same".split(" ")));
+
+    const clusterLayer = document.getElementById("cluster-layer");
+    const clusterToggleEl = document.getElementById("cluster-toggle");
+    let clustersEnabled = localStorage.getItem(CLUSTERS_KEY) !== "off";
+    let clusters = [];
+    let clusterState = new Map();   // cluster key -> { stack: [{from,to}], levelIndex, selectedKey }
+    let clusterEls = new Map();     // cluster key -> HTMLElement
+    let pinnedClusterKey = null;
+    let dateFilter = null;          // { key, ids:Set, from, to }
+    let clustersDirty = true;
+    let labelFrame = null;
+    let globalDocFreq = null;       // term -> number of thoughts containing it
+
+    clusterToggleEl.setAttribute("aria-pressed", String(clustersEnabled));
+    clusterToggleEl.addEventListener("click", () => {
+      clustersEnabled = !clustersEnabled;
+      localStorage.setItem(CLUSTERS_KEY, clustersEnabled ? "on" : "off");
+      clusterToggleEl.setAttribute("aria-pressed", String(clustersEnabled));
+      if (!clustersEnabled) {
+        clearDateFilter();
+        pinnedClusterKey = null;
+      }
+      clustersDirty = true;
+      syncClusterLabels();
+    });
+
+    function prettifyScope(scope) {
+      return String(scope).split(/[-_\s]+/).filter(Boolean)
+        .map(w => {
+          const lower = w.toLowerCase();
+          if (WORD_CASE[lower]) return WORD_CASE[lower];
+          if (ACRONYMS.has(lower)) return w.toUpperCase();
+          return w.charAt(0).toUpperCase() + w.slice(1);
+        })
+        .join(" ");
+    }
+
+    function termsOf(text) {
+      const out = new Set();
+      (text || "").toLowerCase().replace(/[^a-z0-9\s-]/g, " ").split(/\s+/).forEach(w => {
+        const t = w.replace(/^-+|-+$/g, "");
+        if (t.length >= 4 && !STOPWORDS.has(t) && !/^\d+$/.test(t)) out.add(t);
+      });
+      return out;
+    }
+
+    function rebuildDocFreq() {
+      globalDocFreq = new Map();
+      nodesById.forEach(n => {
+        n._terms = termsOf(n.content);
+        n._terms.forEach(t => globalDocFreq.set(t, (globalDocFreq.get(t) || 0) + 1));
+      });
+    }
+
+    // Prefer the dominant scope (it is the user's own topic name, and it is
+    // already what colours the nodes); fall back to the most distinctive term
+    // in the cluster when no scope owns it.
+    function labelForCluster(nodes) {
+      const byScope = new Map();
+      nodes.forEach(n => { if (n.scope) byScope.set(n.scope, (byScope.get(n.scope) || 0) + 1); });
+      let topScope = null, topCount = 0;
+      byScope.forEach((c, s) => { if (c > topCount) { topScope = s; topCount = c; } });
+      const share = topCount / nodes.length;
+      if (topScope && (topScope !== "global" ? share >= 0.35 : share >= 0.5)) {
+        return { label: prettifyScope(topScope), scope: topScope };
+      }
+      // A term only beats the scope name when it is genuinely characteristic
+      // of the cluster — otherwise the scope, however mixed, is the honest
+      // label and the qualifier below carries the nuance.
+      const term = distinctiveTerm(nodes, null, 0.3);
+      if (term) return { label: prettifyScope(term), scope: topScope };
+      return { label: topScope ? prettifyScope(topScope) : "Mixed", scope: topScope };
+    }
+
+    // The term this group of thoughts uses far more than the graph as a whole.
+    function distinctiveTerm(nodes, exclude, minShare) {
+      if (!globalDocFreq) rebuildDocFreq();
+      const total = Math.max(nodesById.size, 1);
+      const floor = minShare || 0;
+      const localFreq = new Map();
+      nodes.forEach(n => (n._terms || termsOf(n.content)).forEach(t => localFreq.set(t, (localFreq.get(t) || 0) + 1)));
+      let best = null, bestScore = 0;
+      localFreq.forEach((c, t) => {
+        if (c < 2 || c / nodes.length < floor || (exclude && exclude.has(t))) return;
+        const score = (c / nodes.length) * Math.log(total / (globalDocFreq.get(t) || 1));
+        if (score > bestScore) { bestScore = score; best = t; }
+      });
+      return best;
+    }
+
+    // One topic can sit in several separate blobs. Repeated names are given a
+    // qualifier so "Money Metrics" three times over reads as three subjects.
+    function qualifyDuplicateLabels(list) {
+      const byLabel = new Map();
+      list.forEach(c => {
+        if (!byLabel.has(c.label)) byLabel.set(c.label, []);
+        byLabel.get(c.label).push(c);
+      });
+      byLabel.forEach((group, label) => {
+        if (group.length < 2) return;
+        const words = label.toLowerCase().split(/\s+/);
+        // A qualifier that just restates the label ("Ramo Dash · ramo-dash")
+        // adds nothing, so every spelling of the name is excluded.
+        const exclude = new Set([...words, words.join(""), words.join("-"), words.join("_")]);
+        group.forEach(c => {
+          if (c.scope) { exclude.add(c.scope); exclude.add(c.scope.replace(/[-_]/g, "")); }
+        });
+        group.forEach(c => {
+          const term = distinctiveTerm(c.members, exclude, 0.15);
+          if (term) c.qualifier = term.length > 14 ? term.slice(0, 13) + "…" : term;
+        });
+      });
+    }
+
+    // A force layout's absolute spacing grows with the node count, so a fixed
+    // radius would find one blob on a big graph and none on a small one. The
+    // median nearest-neighbour distance tracks the layout's own scale.
+    function adaptiveEps(nodes) {
+      const step = Math.max(1, Math.ceil(nodes.length / 150));
+      const dists = [];
+      for (let i = 0; i < nodes.length; i += step) {
+        const n = nodes[i];
+        let best = Infinity;
+        for (const m of nodes) {
+          if (m === n) continue;
+          const dx = m.x - n.x, dy = m.y - n.y, d = dx * dx + dy * dy;
+          if (d < best) best = d;
+        }
+        if (Number.isFinite(best)) dists.push(Math.sqrt(best));
+      }
+      if (!dists.length) return EPS_MIN;
+      dists.sort((a, b) => a - b);
+      const median = dists[Math.floor(dists.length / 2)];
+      return Math.min(EPS_MAX, Math.max(EPS_MIN, median * EPS_FACTOR));
+    }
+
+    function computeClusters() {
+      const nodes = [...nodesById.values()].filter(n => Number.isFinite(n.x) && Number.isFinite(n.y));
+      if (!nodes.length) { clusters = []; return; }
+      rebuildDocFreq();
+
+      const cell = adaptiveEps(nodes);
+      const grid = new Map();
+      const cellKey = (i, j) => i + "," + j;
+      nodes.forEach(n => {
+        const k = cellKey(Math.floor(n.x / cell), Math.floor(n.y / cell));
+        if (!grid.has(k)) grid.set(k, []);
+        grid.get(k).push(n);
+      });
+
+      const parent = new Map(nodes.map(n => [n.id, n.id]));
+      const find = (id) => { while (parent.get(id) !== id) { parent.set(id, parent.get(parent.get(id))); id = parent.get(id); } return id; };
+      const union = (a, b) => { const ra = find(a), rb = find(b); if (ra !== rb) parent.set(ra, rb); };
+      const eps2 = cell * cell;
+      nodes.forEach(n => {
+        const i = Math.floor(n.x / cell), j = Math.floor(n.y / cell);
+        for (let di = -1; di <= 1; di++) for (let dj = -1; dj <= 1; dj++) {
+          const bucket = grid.get(cellKey(i + di, j + dj));
+          if (!bucket) continue;
+          for (const m of bucket) {
+            if (m === n) continue;
+            const dx = m.x - n.x, dy = m.y - n.y;
+            if (dx * dx + dy * dy <= eps2) union(n.id, m.id);
+          }
+        }
+      });
+
+      const groups = new Map();
+      nodes.forEach(n => {
+        const r = find(n.id);
+        if (!groups.has(r)) groups.set(r, []);
+        groups.get(r).push(n);
+      });
+
+      clusters = [];
+      groups.forEach(members => {
+        if (members.length < CLUSTER_MIN_SIZE) return;
+        let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity, sx = 0, sy = 0;
+        members.forEach(n => {
+          minX = Math.min(minX, n.x); maxX = Math.max(maxX, n.x);
+          minY = Math.min(minY, n.y); maxY = Math.max(maxY, n.y);
+          sx += n.x; sy += n.y;
+        });
+        // Anchor identity on the highest-degree member so a pinned label and
+        // its drill-down survive a recompute after the layout shifts.
+        const anchor = members.reduce((a, b) => (b.degree || 0) > (a.degree || 0) ? b : (b.degree === a.degree && b.id < a.id ? b : a), members[0]);
+        const { label, scope } = labelForCluster(members);
+        const dates = members.map(n => Date.parse(n.created_at)).filter(Number.isFinite).sort((a, b) => a - b);
+        clusters.push({
+          key: anchor.id,
+          label,
+          scope,
+          color: colorForScope(scope),
+          ids: new Set(members.map(n => n.id)),
+          members,
+          count: members.length,
+          cx: sx / members.length,
+          cy: sy / members.length,
+          width: Math.max(maxX - minX, 1),
+          height: Math.max(maxY - minY, 1),
+          dates,
+        });
+      });
+      clusters.sort((a, b) => b.count - a.count);
+      qualifyDuplicateLabels(clusters);
+
+      const live = new Set(clusters.map(c => c.key));
+      [...clusterState.keys()].forEach(k => { if (!live.has(k)) clusterState.delete(k); });
+      if (pinnedClusterKey && !live.has(pinnedClusterKey)) pinnedClusterKey = null;
+      if (dateFilter && !live.has(dateFilter.key)) clearDateFilter();
+    }
+
+    // ---- date bucketing --------------------------------------------------
+    const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const WEEKDAYS = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"];
+
+    function bucketStart(ms, level) {
+      const d = new Date(ms);
+      if (level === "year") return new Date(d.getFullYear(), 0, 1);
+      if (level === "month") return new Date(d.getFullYear(), d.getMonth(), 1);
+      if (level === "week") {
+        const s = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+        s.setDate(s.getDate() - ((s.getDay() + 6) % 7)); // week starts Monday
+        return s;
+      }
+      return new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    }
+
+    function bucketEnd(start, level) {
+      const d = new Date(start);
+      if (level === "year") return new Date(d.getFullYear() + 1, 0, 1);
+      if (level === "month") return new Date(d.getFullYear(), d.getMonth() + 1, 1);
+      if (level === "week") { const e = new Date(d); e.setDate(e.getDate() + 7); return e; }
+      const e = new Date(d); e.setDate(e.getDate() + 1); return e;
+    }
+
+    function bucketLabel(start, level) {
+      const d = new Date(start);
+      if (level === "year") return String(d.getFullYear());
+      if (level === "month") return MONTHS[d.getMonth()];
+      if (level === "week") return `${d.getDate()} ${MONTHS[d.getMonth()]}`;
+      // A week can straddle a month end, so days carry their weekday.
+      return `${WEEKDAYS[d.getDay()]} ${d.getDate()}`;
+    }
+
+    function bucketsFor(cluster, levelIndex, from, to) {
+      const level = LEVELS[levelIndex];
+      const map = new Map();
+      cluster.dates.forEach(ms => {
+        if (from != null && (ms < from || ms >= to)) return;
+        const s = bucketStart(ms, level).getTime();
+        if (!map.has(s)) map.set(s, { from: s, to: bucketEnd(s, level).getTime(), count: 0, level });
+        map.get(s).count++;
+      });
+      return [...map.values()].sort((a, b) => a.from - b.from).map(b => ({ ...b, label: bucketLabel(b.from, level) }));
+    }
+
+    function stateFor(cluster) {
+      let st = clusterState.get(cluster.key);
+      if (!st) {
+        st = { levelIndex: 0, from: null, to: null, stack: [], selectedKey: null };
+        clusterState.set(cluster.key, st);
+      }
+      // Skip past levels that hold a single bucket (with six weeks of
+      // thoughts there is only ever one year, so opening on "2026" would
+      // waste the strip); descend until the level actually splits.
+      let guard = 0;
+      while (st.levelIndex < LEVELS.length - 1 && guard++ < 4) {
+        const b = bucketsFor(cluster, st.levelIndex, st.from, st.to);
+        if (b.length > 1 || b.length === 0) break;
+        st.stack.push({ levelIndex: st.levelIndex, from: st.from, to: st.to, selectedKey: st.selectedKey, auto: true });
+        st.levelIndex += 1;
+        st.from = b[0].from;
+        st.to = b[0].to;
+      }
+      return st;
+    }
+
+    // "Aug 2026 · by week" — the window you are inside, then the grain the
+    // ticks below are cut at.
+    function crumbText(st) {
+      const grain = LEVELS[st.levelIndex];
+      if (st.from == null) return `all time · by ${grain}`;
+      const d = new Date(st.from);
+      const days = (st.to - st.from) / 86400000;
+      const window = days > 300 ? String(d.getFullYear())
+        : days > 20 ? `${MONTHS[d.getMonth()]} ${d.getFullYear()}`
+        : `w/c ${d.getDate()} ${MONTHS[d.getMonth()]}`;
+      return `${window} · by ${grain}`;
+    }
+
+    function clearDateFilter() {
+      if (!dateFilter) return;
+      dateFilter = null;
+      applyBaseOpacity();
+    }
+
+    function setDateFilter(cluster, bucket) {
+      dateFilter = { key: cluster.key, ids: cluster.ids, from: bucket.from, to: bucket.to };
+      applyBaseOpacity();
+      const inRange = [...cluster.ids].filter(id => passesFilters(id));
+      if (inRange.length) fitToIds(new Set(inRange));
+    }
+
+    function drillInto(cluster, bucket) {
+      const st = stateFor(cluster);
+      st.selectedKey = bucket.from;
+      setDateFilter(cluster, bucket);
+      if (st.levelIndex < LEVELS.length - 1) {
+        st.stack.push({ levelIndex: st.levelIndex, from: st.from, to: st.to, selectedKey: st.selectedKey });
+        st.levelIndex += 1;
+        st.from = bucket.from;
+        st.to = bucket.to;
+      }
+      pinnedClusterKey = cluster.key;
+      syncClusterLabels();
+    }
+
+    function drillUp(cluster) {
+      const st = stateFor(cluster);
+      // Unwind the auto-skipped levels along with the one the user chose, so
+      // "back" always lands somewhere that actually offers a choice.
+      let prev = st.stack.pop();
+      while (prev && prev.auto && st.stack.length) prev = st.stack.pop();
+      if (!prev) {
+        st.levelIndex = 0; st.from = null; st.to = null; st.selectedKey = null;
+        clearDateFilter();
+        pinnedClusterKey = null;
+        syncClusterLabels();
+        return;
+      }
+      st.levelIndex = prev.levelIndex;
+      st.from = prev.from;
+      st.to = prev.to;
+      st.selectedKey = null;
+      if (st.from == null) clearDateFilter();
+      else { dateFilter = { key: cluster.key, ids: cluster.ids, from: st.from, to: st.to }; applyBaseOpacity(); }
+      syncClusterLabels();
+    }
+
+    // ---- label rendering -------------------------------------------------
+    function labelStateFor(cluster, transform) {
+      // Extent, not width: a tall narrow blob deserves a label just as much.
+      const extent = Math.max(cluster.width, cluster.height) * transform.k;
+      const expanded = pinnedClusterKey === cluster.key || extent >= LABEL_EXPAND_PX;
+      const visible = expanded || extent >= LABEL_MIN_PX;
+      return { visible, expanded };
+    }
+
+    function buildLabelEl(cluster, expanded) {
+      const el = document.createElement("div");
+      el.className = "cluster-label" + (pinnedClusterKey === cluster.key ? " pinned" : "");
+      el.style.setProperty("--cl-color", cluster.color);
+      const st = expanded ? stateFor(cluster) : null;
+
+      const head = document.createElement("div");
+      head.className = "cluster-head";
+      if (expanded && st.stack.some(s => !s.auto)) {
+        const up = document.createElement("button");
+        up.type = "button";
+        up.className = "cluster-up";
+        up.textContent = "‹";
+        up.title = "Back a level";
+        up.addEventListener("click", (ev) => { ev.stopPropagation(); drillUp(cluster); });
+        head.appendChild(up);
+      }
+      const name = document.createElement("span");
+      name.className = "cluster-name";
+      name.textContent = cluster.label;
+      head.appendChild(name);
+      if (cluster.qualifier) {
+        const qual = document.createElement("span");
+        qual.className = "cluster-qualifier";
+        qual.textContent = cluster.qualifier;
+        head.appendChild(qual);
+      }
+      const count = document.createElement("span");
+      count.className = "cluster-count";
+      count.textContent = cluster.count;
+      head.appendChild(count);
+      el.appendChild(head);
+
+      if (expanded) {
+        const buckets = bucketsFor(cluster, st.levelIndex, st.from, st.to);
+        const crumbs = document.createElement("div");
+        crumbs.className = "cluster-crumbs";
+        crumbs.textContent = crumbText(st);
+        el.appendChild(crumbs);
+        const track = document.createElement("div");
+        track.className = "cluster-track";
+        buckets.forEach(b => {
+          const tick = document.createElement("button");
+          tick.type = "button";
+          tick.className = "cluster-tick" + (st.selectedKey === b.from ? " selected" : "");
+          tick.title = `${b.count} thought${b.count === 1 ? "" : "s"}`;
+          const dot = document.createElement("span");
+          dot.className = "tick-dot";
+          const scale = Math.min(1.6, 0.85 + Math.sqrt(b.count) * 0.16);
+          dot.style.width = dot.style.height = `${(9 * scale).toFixed(1)}px`;
+          tick.appendChild(dot);
+          const lab = document.createElement("span");
+          lab.className = "tick-label";
+          lab.textContent = b.label;
+          tick.appendChild(lab);
+          const cnt = document.createElement("span");
+          cnt.className = "tick-count";
+          cnt.textContent = b.count;
+          tick.appendChild(cnt);
+          tick.addEventListener("click", (ev) => { ev.stopPropagation(); drillInto(cluster, b); });
+          track.appendChild(tick);
+        });
+        el.appendChild(track);
+      }
+
+      // Clicking the label itself pins/unpins it: pinning is what lets a
+      // small cluster show its timeline without zooming all the way in.
+      el.addEventListener("click", () => {
+        if (pinnedClusterKey === cluster.key) {
+          pinnedClusterKey = null;
+          clearDateFilter();
+        } else {
+          pinnedClusterKey = cluster.key;
+        }
+        syncClusterLabels();
+      });
+      return el;
+    }
+
+    // The frame clips its overflow, so a label near an edge (an expanded card
+    // especially) is nudged back inside rather than half-cut.
+    function placeLabel(el, sx, sy) {
+      const { w, h } = dims();
+      const ew = el.offsetWidth, eh = el.offsetHeight;
+      const padX = ew / 2 + 8, padY = eh / 2 + 8;
+      const x = w > ew + 16 ? Math.min(Math.max(sx, padX), w - padX) : w / 2;
+      const y = h > eh + 16 ? Math.min(Math.max(sy, padY), h - padY) : h / 2;
+      el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -50%)`;
+    }
+
+    // Frame-relative boxes a label must not land on.
+    function occupiedBoxes() {
+      const frame = container.getBoundingClientRect();
+      const boxes = [];
+      [container.querySelector(".graph-legend"), panelEl.classList.contains("open") ? panelEl : null]
+        .forEach(el => {
+          if (!el) return;
+          const r = el.getBoundingClientRect();
+          boxes.push({ x0: r.left - frame.left - 10, y0: r.top - frame.top - 10, x1: r.right - frame.left + 10, y1: r.bottom - frame.top + 10 });
+        });
+      return boxes;
+    }
+
+    function syncClusterLabels() {
+      if (!clustersEnabled || !clusters.length) {
+        clusterLayer.replaceChildren();
+        clusterEls = new Map();
+        return;
+      }
+      const transform = d3.zoomTransform(svg.node());
+      const { w, h } = dims();
+      const placed = [];
+      const blocked = occupiedBoxes();
+      const next = new Map();
+      const frag = document.createDocumentFragment();
+
+      const ordered = pinnedClusterKey
+        ? [...clusters].sort((a, b) => (b.key === pinnedClusterKey) - (a.key === pinnedClusterKey))
+        : clusters;
+
+      ordered.forEach(cluster => {
+        const { visible, expanded } = labelStateFor(cluster, transform);
+        if (!visible) return;
+        const [sx, sy] = transform.apply([cluster.cx, cluster.cy]);
+        // A pinned cluster always keeps its card — drilling into a date range
+        // pans the view to that range, which can push the cluster's centroid
+        // off-frame; placeLabel() pulls the card back inside.
+        const isPinned = pinnedClusterKey === cluster.key;
+        if (!isPinned && (sx < -80 || sy < -60 || sx > w + 80 || sy > h + 60)) return;
+        // Greedy de-overlap: bigger clusters win the space.
+        if (!isPinned && placed.some(p => Math.abs(p.x - sx) < LABEL_MIN_GAP_PX && Math.abs(p.y - sy) < 44)) return;
+        // ...and the legend / open detail panel keep theirs.
+        if (!isPinned && blocked.some(b => sx > b.x0 && sx < b.x1 && sy > b.y0 && sy < b.y1)) return;
+        placed.push({ x: sx, y: sy });
+        const el = buildLabelEl(cluster, expanded);
+        el.style.transform = `translate(${sx.toFixed(1)}px, ${sy.toFixed(1)}px) translate(-50%, -50%)`;
+        next.set(cluster.key, { el, cluster });
+        frag.appendChild(el);
+      });
+
+      clusterLayer.replaceChildren(frag);
+      clusterEls = next;
+      // Clamping needs measured sizes, so it happens once the labels are in
+      // the document.
+      const tf = d3.zoomTransform(svg.node());
+      clusterEls.forEach(({ el, cluster }) => {
+        const [sx, sy] = tf.apply([cluster.cx, cluster.cy]);
+        placeLabel(el, sx, sy);
+      });
+    }
+
+    // Positions are cheap to update; the DOM is only rebuilt when the set of
+    // visible labels or their expanded state would change.
+    function positionClusterLabels() {
+      if (!clustersEnabled || !clusterEls.size) return;
+      const transform = d3.zoomTransform(svg.node());
+      let needsRebuild = false;
+      clusterEls.forEach(({ el, cluster }) => {
+        const { visible, expanded } = labelStateFor(cluster, transform);
+        const wasExpanded = !!el.querySelector(".cluster-track");
+        if (!visible || expanded !== wasExpanded) { needsRebuild = true; return; }
+        const [sx, sy] = transform.apply([cluster.cx, cluster.cy]);
+        placeLabel(el, sx, sy);
+      });
+      if (needsRebuild) syncClusterLabels();
+      else if (clusters.some(c => !clusterEls.has(c.key) && labelStateFor(c, transform).visible)) syncClusterLabels();
+    }
+
+    function scheduleLabelUpdate(recompute) {
+      if (recompute) clustersDirty = true;
+      if (labelFrame) return;
+      labelFrame = requestAnimationFrame(() => {
+        labelFrame = null;
+        if (clustersDirty && clustersEnabled) {
+          computeClusters();
+          clustersDirty = false;
+          syncClusterLabels();
+        } else {
+          positionClusterLabels();
+        }
+      });
     }
 
     function highlight(id) {
@@ -1748,7 +2517,16 @@
       else startMergeMode();
     });
     document.getElementById("merge-cancel").addEventListener("click", cancelMergeMode);
-    document.addEventListener("keydown", ev => { if (ev.key === "Escape" && mergeSourceId) cancelMergeMode(); });
+    document.addEventListener("keydown", ev => {
+      if (ev.key !== "Escape") return;
+      if (mergeSourceId) { cancelMergeMode(); return; }
+      if (dateFilter || pinnedClusterKey) {
+        clearDateFilter();
+        pinnedClusterKey = null;
+        clusterState = new Map();
+        syncClusterLabels();
+      }
+    });
 
     async function completeMerge(targetNode) {
       const keepNode = nodesById.get(mergeSourceId);
@@ -1853,6 +2631,7 @@
     window.addEventListener("resize", () => {
       const { w, h } = dims();
       svg.attr("viewBox", `0 0 ${w} ${h}`);
+      scheduleLabelUpdate(false);
     });
     window.dispatchEvent(new Event("resize"));
 
