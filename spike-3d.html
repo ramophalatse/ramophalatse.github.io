@@ -11,6 +11,9 @@
 
   Controls: middle-drag orbits, scroll zooms, left-drag on empty space pans,
   left-drag on a node moves it, right-drag also pans, hover shows the label.
+  Orbit and pan have fling inertia: release mid-drag and the view keeps
+  coasting, then eases to a stop (tune FLING_TAU_MS). Clicking or scrolling
+  stops the coast. Zoom has no inertia yet.
   Node colour uses the same colorForScope() hash and palette as index.html;
   node size uses the same nodeRadius() curve; links use RELATION_STYLE colours.
 
@@ -182,8 +185,108 @@
   const controls = graph.controls();
   controls.mouseButtons = { LEFT: MOUSE.PAN, MIDDLE: MOUSE.ROTATE, RIGHT: MOUSE.PAN };
   controls.screenSpacePanning = true;
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.12;
+  // Damping off: drag tracks the pointer 1:1, and the fling below supplies the
+  // inertia. OrbitControls' own damping lags behind the pointer during the drag
+  // and dies out in about a tenth of a second, so it never feels like a throw.
+  controls.enableDamping = false;
+
+  // ---- Fling inertia (orbit and pan) ----------------------------------------
+  // While a view drag is active, sample camera angles and target position on
+  // every controls "change". On release, the velocity over the last
+  // FLING_WINDOW_MS keeps the camera coasting, decaying exponentially with time
+  // constant FLING_TAU_MS. Holding still before release means no fling.
+  // Any new pointerdown or wheel stops the coast.
+  const FLING_WINDOW_MS = 90;
+  const FLING_IDLE_MS = 70;    // pointer still this long before release: no fling
+  const FLING_TAU_MS = 420;    // bigger = longer glide
+  const FLING_MAX_SPIN = 0.012; // rad per ms cap so a wild flick stays readable
+  const fling = { dragging: false, samples: [], vTheta: 0, vPhi: 0, vPan: [0, 0, 0], raf: 0, last: 0 };
+
+  function viewState() {
+    const c = graph.camera().position, t = controls.target;
+    const ox = c.x - t.x, oy = c.y - t.y, oz = c.z - t.z;
+    const r = Math.hypot(ox, oy, oz) || 1;
+    return {
+      time: performance.now(),
+      theta: Math.atan2(ox, oz),
+      phi: Math.acos(Math.max(-1, Math.min(1, oy / r))),
+      target: [t.x, t.y, t.z],
+    };
+  }
+  const wrapAngle = a => Math.atan2(Math.sin(a), Math.cos(a));
+
+  function stopFling() {
+    if (fling.raf) cancelAnimationFrame(fling.raf);
+    fling.raf = 0;
+  }
+
+  function stepFling(now) {
+    const dt = Math.min(48, now - fling.last);
+    fling.last = now;
+    const cam = graph.camera().position, t = controls.target;
+
+    // Pan: move target and camera together.
+    const px = fling.vPan[0] * dt, py = fling.vPan[1] * dt, pz = fling.vPan[2] * dt;
+    t.x += px; t.y += py; t.z += pz;
+    cam.x += px; cam.y += py; cam.z += pz;
+
+    // Orbit: advance spherical angles around the target (y is up).
+    const ox = cam.x - t.x, oy = cam.y - t.y, oz = cam.z - t.z;
+    const r = Math.hypot(ox, oy, oz) || 1;
+    const theta = Math.atan2(ox, oz) + fling.vTheta * dt;
+    const phi = Math.max(0.01, Math.min(Math.PI - 0.01, Math.acos(Math.max(-1, Math.min(1, oy / r))) + fling.vPhi * dt));
+    cam.x = t.x + r * Math.sin(phi) * Math.sin(theta);
+    cam.y = t.y + r * Math.cos(phi);
+    cam.z = t.z + r * Math.sin(phi) * Math.cos(theta);
+    controls.update();   // re-aims the camera at the target
+
+    const decay = Math.exp(-dt / FLING_TAU_MS);
+    fling.vTheta *= decay; fling.vPhi *= decay;
+    fling.vPan = fling.vPan.map(v => v * decay);
+    const spin = Math.abs(fling.vTheta) + Math.abs(fling.vPhi);
+    const pan = Math.hypot(...fling.vPan) / r;   // relative to zoom level
+    fling.raf = (spin > 2e-5 || pan > 2e-5) ? requestAnimationFrame(stepFling) : 0;
+  }
+
+  controls.addEventListener("start", () => {
+    stopFling();
+    fling.dragging = true;
+    fling.samples = [viewState()];
+  });
+  controls.addEventListener("change", () => {
+    if (!fling.dragging) return;
+    fling.samples.push(viewState());
+    const cutoff = performance.now() - 250;
+    while (fling.samples.length > 2 && fling.samples[0].time < cutoff) fling.samples.shift();
+  });
+  controls.addEventListener("end", () => {
+    if (!fling.dragging) return;
+    fling.dragging = false;
+    const now = performance.now();
+    const s = fling.samples;
+    const lastS = s[s.length - 1];
+    if (s.length < 2) return;
+    // On slow frames moves arrive further apart, so scale the "held still"
+    // threshold to the observed gap between moves.
+    const gap = (lastS.time - s[0].time) / (s.length - 1);
+    if (now - lastS.time > Math.max(FLING_IDLE_MS, gap * 1.5)) return;
+    let firstS = s[0];
+    for (let i = s.length - 2; i >= 0; i--) {
+      firstS = s[i];
+      if (lastS.time - s[i].time >= FLING_WINDOW_MS) break;
+    }
+    const span = lastS.time - firstS.time;
+    if (span < 8) return;
+    const clampSpin = v => Math.max(-FLING_MAX_SPIN, Math.min(FLING_MAX_SPIN, v));
+    fling.vTheta = clampSpin(wrapAngle(lastS.theta - firstS.theta) / span);
+    fling.vPhi = clampSpin((lastS.phi - firstS.phi) / span);
+    fling.vPan = lastS.target.map((v, i) => (v - firstS.target[i]) / span);
+    fling.last = now;
+    stopFling();
+    fling.raf = requestAnimationFrame(stepFling);
+  });
+  el.addEventListener("pointerdown", stopFling, true);
+  el.addEventListener("wheel", stopFling, { capture: true, passive: true });
 
   // Workaround for 3d-force-graph 1.80.1 with controlType "orbit": on node drag
   // end it dispatches a synthetic touch pointerup on the document, which
