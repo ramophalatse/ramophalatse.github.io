@@ -1,0 +1,2256 @@
+{
+ "_snapshot_note": "PLACEHOLDER data in the public-thoughts-graph payload shape. Replace with: curl -sS https://ckjxebkncqbiecopwnvb.supabase.co/functions/v1/public-thoughts-graph -o graph.json",
+ "thoughts": [
+  {
+   "id": "128b2f33-0c5c-7fd0-a6a3-a4506513270e",
+   "content": "[placeholder] quote worth keeping #1",
+   "scope": "reading",
+   "created_at": "2025-06-18T20:16:00Z",
+   "metadata": null
+  },
+  {
+   "id": "81e74ef5-e8e2-5d94-0ed9-04759531985d",
+   "content": "[placeholder] net worth snapshot #2",
+   "scope": "money-metrics",
+   "created_at": "2025-11-22T06:52:00Z",
+   "metadata": null
+  },
+  {
+   "id": "8d116ece-1738-f7d9-3d9c-172411e20b8f",
+   "content": "[placeholder] edge function caching #3",
+   "scope": "openbrain",
+   "created_at": "2025-05-02T14:02:00Z",
+   "metadata": null
+  },
+  {
+   "id": "953f48f1-a09f-76b5-a170-b33839263059",
+   "content": "[placeholder] graph layout idea #4",
+   "scope": "openbrain",
+   "created_at": "2026-04-16T18:01:00Z",
+   "metadata": {
+    "type": "backlog_idea",
+    "state": "open"
+   }
+  },
+  {
+   "id": "8e81973e-0bec-d7b0-3898-d190f9ebdacc",
+   "content": "[placeholder] prompt pattern #5",
+   "scope": "ai-tools",
+   "created_at": "2025-04-06T02:38:00Z",
+   "metadata": null
+  },
+  {
+   "id": "92276658-1e27-a1c0-8a6a-63ec24ede6a4",
+   "content": "[placeholder] training plan #6",
+   "scope": "health",
+   "created_at": "2025-12-31T04:59:00Z",
+   "metadata": null
+  },
+  {
+   "id": "301850c5-a38f-d547-923a-736994e3bf91",
+   "content": "[placeholder] flight option #7",
+   "scope": "travel",
+   "created_at": "2025-05-15T01:01:00Z",
+   "metadata": null
+  },
+  {
+   "id": "0f4205b4-907a-70c3-1012-f037b64ce422",
+   "content": "[placeholder] net worth snapshot #8",
+   "scope": "money-metrics",
+   "created_at": "2026-04-03T20:31:00Z",
+   "metadata": null
+  },
+  {
+   "id": "506bf2ef-c6f8-7718-6d76-b07e881ed162",
+   "content": "[placeholder] random idea #9",
+   "scope": null,
+   "created_at": "2026-07-09T10:51:00Z",
+   "metadata": null
+  },
+  {
+   "id": "2e05319a-cb5c-7427-3f98-e2774cbd87ad",
+   "content": "[placeholder] loose thought #10",
+   "scope": null,
+   "created_at": "2025-11-19T07:06:00Z",
+   "metadata": null
+  },
+  {
+   "id": "e00902c7-7ebf-f206-8673-47214cdd2055",
+   "content": "[placeholder] variable spend spike #11",
+   "scope": "money-metrics",
+   "created_at": "2026-04-23T06:46:00Z",
+   "metadata": null
+  },
+  {
+   "id": "1e398f10-12bd-4ace-faec-bd389be4bcfc",
+   "content": "[placeholder] random idea #12",
+   "scope": null,
+   "created_at": "2025-09-26T16:04:00Z",
+   "metadata": null
+  },
+  {
+   "id": "7d2caf82-eeea-cbe2-26e8-75555790f82e",
+   "content": "[placeholder] packing list #13",
+   "scope": "travel",
+   "created_at": "2026-09-03T07:59:00Z",
+   "metadata": null
+  },
+  {
+   "id": "e01f5057-ca02-135e-92b1-d3f28ede0d7a",
+   "content": "[placeholder] backlog triage flow #14",
+   "scope": "openbrain",
+   "created_at": "2026-06-30T13:55:00Z",
+   "metadata": {
+    "type": "backlog_idea",
+    "state": "open"
+   }
+  },
+  {
+   "id": "9474031b-7f26-144b-9828-9fcd59a54a7b",
+   "content": "[placeholder] article summary #15",
+   "scope": "reading",
+   "created_at": "2026-07-20T07:10:00Z",
+   "metadata": null
+  },
+  {
+   "id": "b2715945-795e-8229-451a-bd81f1d69ed6",
+   "content": "[placeholder] budget vs actual review #16",
+   "scope": "money-metrics",
+   "created_at": "2025-05-08T03:42:00Z",
+   "metadata": null
+  },
+  {
+   "id": "ae658f33-fe3b-890b-93f4-48b3a5aa3c81",
+   "content": "[placeholder] edge function caching #17",
+   "scope": "openbrain",
+   "created_at": "2026-08-15T09:56:00Z",
+   "metadata": null
+  },
+  {
+   "id": "58d5563d-ab2c-d31e-e315-128862c33a4f",
+   "content": "[placeholder] sleep log #18",
+   "scope": "health",
+   "created_at": "2026-08-04T19:58:00Z",
+   "metadata": null
+  },
+  {
+   "id": "7e62aa0a-1df9-fd78-9c65-39382b0537e6",
+   "content": "[placeholder] loose thought #19",
+   "scope": null,
+   "created_at": "2025-11-14T20:11:00Z",
+   "metadata": null
+  },
+  {
+   "id": "3f63af83-bd05-61e6-211c-70cf49952399",
+   "content": "[placeholder] meeting takeaway #20",
+   "scope": "work-cvp",
+   "created_at": "2026-09-11T09:50:00Z",
+   "metadata": null
+  },
+  {
+   "id": "66d22876-72fd-f202-2a96-fb1a14a0f9e7",
+   "content": "[placeholder] agent workflow #21",
+   "scope": "ai-tools",
+   "created_at": "2026-02-25T13:05:00Z",
+   "metadata": null
+  },
+  {
+   "id": "47469a4d-8cdb-305f-dd2e-16096e36aab0",
+   "content": "[placeholder] packing list #22",
+   "scope": "travel",
+   "created_at": "2026-10-18T13:57:00Z",
+   "metadata": null
+  },
+  {
+   "id": "3b1287ff-f52d-df5d-6164-99c9e25a7605",
+   "content": "[placeholder] book highlight #23",
+   "scope": "reading",
+   "created_at": "2026-07-11T03:27:00Z",
+   "metadata": null
+  },
+  {
+   "id": "3bbbe9ea-a894-8c89-3b61-867626bb7dbd",
+   "content": "[placeholder] budget vs actual review #24",
+   "scope": "money-metrics",
+   "created_at": "2025-07-07T07:37:00Z",
+   "metadata": null
+  },
+  {
+   "id": "010c4759-482c-9cbc-4343-5cc52eae05cf",
+   "content": "[placeholder] loose thought #25",
+   "scope": null,
+   "created_at": "2026-05-03T23:40:00Z",
+   "metadata": null
+  },
+  {
+   "id": "519088f5-90fb-bd11-9c1c-aaf75e8766ed",
+   "content": "[placeholder] prompt pattern #26",
+   "scope": "ai-tools",
+   "created_at": "2026-03-25T06:39:00Z",
+   "metadata": null
+  },
+  {
+   "id": "ae3a2b7f-dfe0-1893-f3ae-d0b6c7ac1491",
+   "content": "[placeholder] search ranking note #27",
+   "scope": "openbrain",
+   "created_at": "2026-01-27T12:25:00Z",
+   "metadata": null
+  },
+  {
+   "id": "7b45145c-1a81-682c-64e5-0cad66237a04",
+   "content": "[placeholder] LLM eval thought #28",
+   "scope": "ai-tools",
+   "created_at": "2025-12-15T20:46:00Z",
+   "metadata": null
+  },
+  {
+   "id": "1c2442f9-298c-b3a5-70cc-ec313571810a",
+   "content": "[placeholder] backlog triage flow #29",
+   "scope": "openbrain",
+   "created_at": "2025-07-17T19:08:00Z",
+   "metadata": {
+    "type": "backlog_idea",
+    "state": "open"
+   }
+  },
+  {
+   "id": "f2ee4e45-19f9-919c-895f-d7b326b94c7f",
+   "content": "[placeholder] backlog triage flow #30",
+   "scope": "openbrain",
+   "created_at": "2025-05-14T13:12:00Z",
+   "metadata": {
+    "type": "backlog_idea",
+    "state": "open"
+   }
+  },
+  {
+   "id": "a268aa87-2607-679d-6050-914a9d33a01c",
+   "content": "[placeholder] backlog triage flow #31",
+   "scope": "openbrain",
+   "created_at": "2025-04-21T04:51:00Z",
+   "metadata": null
+  },
+  {
+   "id": "1d87cec3-1f72-96ab-7961-fd925d39d0a8",
+   "content": "[placeholder] article summary #32",
+   "scope": "reading",
+   "created_at": "2026-05-13T13:35:00Z",
+   "metadata": null
+  },
+  {
+   "id": "24e4e25a-15fc-899e-4fd5-8dbe7bdc968b",
+   "content": "[placeholder] loose thought #33",
+   "scope": null,
+   "created_at": "2026-02-13T19:30:00Z",
+   "metadata": null
+  },
+  {
+   "id": "b12aa1f6-d42f-ddbb-7a86-f7a243c71b9a",
+   "content": "[placeholder] book highlight #34",
+   "scope": "reading",
+   "created_at": "2026-08-22T02:34:00Z",
+   "metadata": null
+  },
+  {
+   "id": "b0a844e5-2587-be6b-5c9b-cf35873be078",
+   "content": "[placeholder] search ranking note #35",
+   "scope": "openbrain",
+   "created_at": "2025-07-28T10:23:00Z",
+   "metadata": null
+  },
+  {
+   "id": "174c77a2-dd02-de92-a496-36a2fa7f0eab",
+   "content": "[placeholder] backlog triage flow #36",
+   "scope": "openbrain",
+   "created_at": "2026-09-04T01:30:00Z",
+   "metadata": null
+  },
+  {
+   "id": "8857f9a4-3908-f227-c59d-b9165b0ee76f",
+   "content": "[placeholder] quote worth keeping #37",
+   "scope": "reading",
+   "created_at": "2025-06-30T15:16:00Z",
+   "metadata": null
+  },
+  {
+   "id": "c9d488b1-cfbf-3360-9cfc-865239194242",
+   "content": "[placeholder] book highlight #38",
+   "scope": "reading",
+   "created_at": "2026-06-07T10:37:00Z",
+   "metadata": null
+  },
+  {
+   "id": "3a0b9965-cda6-c6fd-bd68-516766934036",
+   "content": "[placeholder] KPI definition #39",
+   "scope": "work-cvp",
+   "created_at": "2026-10-17T21:24:00Z",
+   "metadata": null
+  },
+  {
+   "id": "0726e25c-fd56-a926-076b-3e36bb2313f5",
+   "content": "[placeholder] random idea #40",
+   "scope": null,
+   "created_at": "2025-11-14T21:54:00Z",
+   "metadata": null
+  },
+  {
+   "id": "f4de2c08-9aea-6429-b149-1e243192b704",
+   "content": "[placeholder] random idea #41",
+   "scope": null,
+   "created_at": "2025-09-05T17:24:00Z",
+   "metadata": null
+  },
+  {
+   "id": "597a1ecf-fcf0-0fec-b91e-e9e5efe09f07",
+   "content": "[placeholder] random idea #42",
+   "scope": null,
+   "created_at": "2026-10-10T18:42:00Z",
+   "metadata": null
+  },
+  {
+   "id": "325b55dd-7857-2976-3a12-917c1a26f889",
+   "content": "[placeholder] variable spend spike #43",
+   "scope": "money-metrics",
+   "created_at": "2025-08-08T12:51:00Z",
+   "metadata": null
+  },
+  {
+   "id": "9c3a23cd-e67a-9b75-fc39-47249fc2d0a1",
+   "content": "[placeholder] stakeholder note #44",
+   "scope": "work-cvp",
+   "created_at": "2026-02-15T10:58:00Z",
+   "metadata": null
+  },
+  {
+   "id": "15b40aeb-a4a4-5eff-ccb5-73d95810d60e",
+   "content": "[placeholder] loose thought #45",
+   "scope": null,
+   "created_at": "2026-06-19T11:37:00Z",
+   "metadata": null
+  },
+  {
+   "id": "7a605a91-3306-98a1-c009-3492b6246771",
+   "content": "[placeholder] prompt pattern #46",
+   "scope": "ai-tools",
+   "created_at": "2026-09-21T15:44:00Z",
+   "metadata": null
+  },
+  {
+   "id": "cd02c5e1-1635-3d03-551f-d8f9a2c68e45",
+   "content": "[placeholder] LLM eval thought #47",
+   "scope": "ai-tools",
+   "created_at": "2026-09-26T15:08:00Z",
+   "metadata": null
+  },
+  {
+   "id": "b98c67c2-15bd-448f-f261-49edbe4c5ce6",
+   "content": "[placeholder] loose thought #48",
+   "scope": null,
+   "created_at": "2025-12-18T06:44:00Z",
+   "metadata": null
+  },
+  {
+   "id": "e7a46309-973f-7986-26b1-cffc070d7109",
+   "content": "[placeholder] packing list #49",
+   "scope": "travel",
+   "created_at": "2025-06-01T12:09:00Z",
+   "metadata": null
+  },
+  {
+   "id": "796f74ad-faf5-5496-988a-f3fbd39630d6",
+   "content": "[placeholder] flight option #50",
+   "scope": "travel",
+   "created_at": "2026-05-20T08:01:00Z",
+   "metadata": null
+  },
+  {
+   "id": "03a56cc1-057a-40b2-2188-287e8c5c715f",
+   "content": "[placeholder] itinerary leg #51",
+   "scope": "travel",
+   "created_at": "2026-04-04T12:31:00Z",
+   "metadata": null
+  },
+  {
+   "id": "d37ee915-31de-c4f4-df2a-8b79fc8e80b3",
+   "content": "[placeholder] hotel deposit due #52",
+   "scope": "travel",
+   "created_at": "2026-01-10T21:22:00Z",
+   "metadata": null
+  },
+  {
+   "id": "9620bf0d-c380-84a0-3d93-fd4c804c25d6",
+   "content": "[placeholder] backlog triage flow #53",
+   "scope": "openbrain",
+   "created_at": "2025-08-31T09:07:00Z",
+   "metadata": {
+    "type": "backlog_idea",
+    "state": "open"
+   }
+  },
+  {
+   "id": "0f977044-218e-0b7b-d58d-cdb46b446806",
+   "content": "[placeholder] meal prep idea #54",
+   "scope": "health",
+   "created_at": "2026-04-01T09:15:00Z",
+   "metadata": null
+  },
+  {
+   "id": "e77ffe48-d0a6-ec17-9556-585ea997f351",
+   "content": "[placeholder] quote worth keeping #55",
+   "scope": "reading",
+   "created_at": "2026-01-28T14:56:00Z",
+   "metadata": null
+  },
+  {
+   "id": "86048719-26de-bfdb-8825-ae562179b37d",
+   "content": "[placeholder] MCP server idea #56",
+   "scope": "ai-tools",
+   "created_at": "2026-03-01T06:57:00Z",
+   "metadata": null
+  },
+  {
+   "id": "c6aa7d55-0101-b811-9bca-3cb72ee0289d",
+   "content": "[placeholder] loose thought #57",
+   "scope": null,
+   "created_at": "2026-09-17T10:25:00Z",
+   "metadata": null
+  },
+  {
+   "id": "1ece615d-b9a6-442e-9e7d-6b377936d536",
+   "content": "[placeholder] itinerary leg #58",
+   "scope": "travel",
+   "created_at": "2025-06-12T01:55:00Z",
+   "metadata": null
+  },
+  {
+   "id": "7b8444d1-8e31-7041-87dd-aeb784b28054",
+   "content": "[placeholder] book highlight #59",
+   "scope": "reading",
+   "created_at": "2026-07-10T20:36:00Z",
+   "metadata": null
+  },
+  {
+   "id": "81f98b52-1905-d591-c5b2-e75a0acd8be1",
+   "content": "[placeholder] edge function caching #60",
+   "scope": "openbrain",
+   "created_at": "2025-08-28T22:45:00Z",
+   "metadata": {
+    "type": "backlog_idea",
+    "state": "open"
+   }
+  },
+  {
+   "id": "9ccea098-535b-6a43-7178-ba0a1038f0b5",
+   "content": "[placeholder] search ranking note #61",
+   "scope": "openbrain",
+   "created_at": "2026-09-05T09:50:00Z",
+   "metadata": null
+  },
+  {
+   "id": "888564e8-8216-858f-73cc-ef0346f5a1b4",
+   "content": "[placeholder] meeting takeaway #62",
+   "scope": "work-cvp",
+   "created_at": "2026-07-18T10:21:00Z",
+   "metadata": null
+  },
+  {
+   "id": "f132bf2d-e040-015c-e064-a11485f1115b",
+   "content": "[placeholder] roadmap item #63",
+   "scope": "work-cvp",
+   "created_at": "2026-07-23T03:43:00Z",
+   "metadata": null
+  },
+  {
+   "id": "6471fde4-1f22-9dd0-6aa8-b9e0231b3e14",
+   "content": "[placeholder] meeting takeaway #64",
+   "scope": "work-cvp",
+   "created_at": "2026-01-20T21:07:00Z",
+   "metadata": null
+  },
+  {
+   "id": "12b80aed-6da7-9a87-3d9a-8079abd0d7fb",
+   "content": "[placeholder] book highlight #65",
+   "scope": "reading",
+   "created_at": "2025-04-22T19:50:00Z",
+   "metadata": null
+  },
+  {
+   "id": "2789d059-c6e5-0df2-e5a3-863e1f525265",
+   "content": "[placeholder] meal prep idea #66",
+   "scope": "health",
+   "created_at": "2026-09-22T20:16:00Z",
+   "metadata": null
+  },
+  {
+   "id": "f7b103df-2323-1e1e-e201-552240cbacd0",
+   "content": "[placeholder] article summary #67",
+   "scope": "reading",
+   "created_at": "2025-06-13T02:44:00Z",
+   "metadata": null
+  },
+  {
+   "id": "e28af604-65f4-2986-1818-9af4f3d74f82",
+   "content": "[placeholder] meeting takeaway #68",
+   "scope": "work-cvp",
+   "created_at": "2026-08-26T17:12:00Z",
+   "metadata": null
+  },
+  {
+   "id": "b4d19ec1-2955-d6f0-3945-336bd51b1815",
+   "content": "[placeholder] packing list #69",
+   "scope": "travel",
+   "created_at": "2026-06-30T07:13:00Z",
+   "metadata": null
+  },
+  {
+   "id": "518ae452-5b4b-1b75-321c-52966bd8c676",
+   "content": "[placeholder] MCP server idea #70",
+   "scope": "ai-tools",
+   "created_at": "2025-11-02T22:29:00Z",
+   "metadata": null
+  },
+  {
+   "id": "70c1dca1-756b-7289-8dd6-3cb95685d624",
+   "content": "[placeholder] quote worth keeping #71",
+   "scope": "reading",
+   "created_at": "2025-03-15T04:29:00Z",
+   "metadata": null
+  },
+  {
+   "id": "f5f554ed-8323-9ef5-4ba2-e1619fb9af50",
+   "content": "[placeholder] graph layout idea #72",
+   "scope": "openbrain",
+   "created_at": "2025-12-05T20:54:00Z",
+   "metadata": {
+    "type": "backlog_idea",
+    "state": "open"
+   }
+  },
+  {
+   "id": "1ad2d5f1-e05b-3e13-f8c1-10fb3a828159",
+   "content": "[placeholder] budget vs actual review #73",
+   "scope": "money-metrics",
+   "created_at": "2026-09-26T01:38:00Z",
+   "metadata": null
+  },
+  {
+   "id": "2e7a26e9-c76c-603f-e7e8-f9f60a227385",
+   "content": "[placeholder] training plan #74",
+   "scope": "health",
+   "created_at": "2025-09-15T00:09:00Z",
+   "metadata": null
+  },
+  {
+   "id": "ad0c9bb6-e952-6a69-d97e-967b6c18d982",
+   "content": "[placeholder] flight option #75",
+   "scope": "travel",
+   "created_at": "2026-10-18T22:38:00Z",
+   "metadata": null
+  },
+  {
+   "id": "9212824c-83c8-cb28-eb4e-d2e3895e8b6b",
+   "content": "[placeholder] LLM eval thought #76",
+   "scope": "ai-tools",
+   "created_at": "2025-06-17T18:23:00Z",
+   "metadata": null
+  },
+  {
+   "id": "b02e3d8d-ccb1-c51d-0eba-0ea84770a087",
+   "content": "[placeholder] book highlight #77",
+   "scope": "reading",
+   "created_at": "2025-05-05T03:27:00Z",
+   "metadata": null
+  },
+  {
+   "id": "a26aa0ae-044f-1574-f037-afc644d82a53",
+   "content": "[placeholder] MCP server idea #78",
+   "scope": "ai-tools",
+   "created_at": "2025-04-22T17:31:00Z",
+   "metadata": null
+  },
+  {
+   "id": "110e2cb6-38ef-baeb-db31-ccd29bb183e1",
+   "content": "[placeholder] training plan #79",
+   "scope": "health",
+   "created_at": "2025-04-30T23:30:00Z",
+   "metadata": null
+  },
+  {
+   "id": "8d959c31-fe8a-d4a1-56d2-a68c02f4b342",
+   "content": "[placeholder] savings target #80",
+   "scope": "money-metrics",
+   "created_at": "2026-01-25T10:16:00Z",
+   "metadata": null
+  },
+  {
+   "id": "b5a432cf-86e3-e726-0b0f-873b2114e068",
+   "content": "[placeholder] sleep log #81",
+   "scope": "health",
+   "created_at": "2026-05-27T17:03:00Z",
+   "metadata": null
+  },
+  {
+   "id": "33a71568-2e5f-950c-0ce5-af69430b91ed",
+   "content": "[placeholder] variable spend spike #82",
+   "scope": "money-metrics",
+   "created_at": "2025-06-26T13:31:00Z",
+   "metadata": null
+  },
+  {
+   "id": "721888ff-4a3a-df99-34b3-ff60c26e7a42",
+   "content": "[placeholder] meal prep idea #83",
+   "scope": "health",
+   "created_at": "2026-03-22T17:23:00Z",
+   "metadata": null
+  },
+  {
+   "id": "fe977c56-04a6-5651-cdbd-e74758d50f1b",
+   "content": "[placeholder] flight option #84",
+   "scope": "travel",
+   "created_at": "2025-09-13T23:43:00Z",
+   "metadata": null
+  },
+  {
+   "id": "30803889-fa61-9774-8d11-8e3781728a07",
+   "content": "[placeholder] search ranking note #85",
+   "scope": "openbrain",
+   "created_at": "2025-03-12T04:11:00Z",
+   "metadata": {
+    "type": "backlog_idea",
+    "state": "open"
+   }
+  },
+  {
+   "id": "a887ae22-1b35-411b-7272-3b9cef44c0d5",
+   "content": "[placeholder] random idea #86",
+   "scope": null,
+   "created_at": "2025-08-26T21:33:00Z",
+   "metadata": null
+  },
+  {
+   "id": "f86664ae-64a1-49f5-e383-8b9ed5a9422a",
+   "content": "[placeholder] random idea #87",
+   "scope": null,
+   "created_at": "2026-04-02T12:24:00Z",
+   "metadata": null
+  },
+  {
+   "id": "e1c60aa3-d510-bb04-32d9-0dcd57bb7d97",
+   "content": "[placeholder] KPI definition #88",
+   "scope": "work-cvp",
+   "created_at": "2025-08-15T03:57:00Z",
+   "metadata": null
+  },
+  {
+   "id": "213bca7f-d644-de2f-0dec-6823fb5c9d56",
+   "content": "[placeholder] MCP server idea #89",
+   "scope": "ai-tools",
+   "created_at": "2025-11-09T01:54:00Z",
+   "metadata": null
+  },
+  {
+   "id": "6e4505f5-416e-99b0-e13e-213ebdaaea00",
+   "content": "[placeholder] net worth snapshot #90",
+   "scope": "money-metrics",
+   "created_at": "2026-05-30T10:30:00Z",
+   "metadata": null
+  },
+  {
+   "id": "aba8b9b3-8185-797c-dedb-9109618177ff",
+   "content": "[placeholder] backlog triage flow #91",
+   "scope": "openbrain",
+   "created_at": "2025-05-01T12:28:00Z",
+   "metadata": null
+  },
+  {
+   "id": "2f733b05-759e-b559-0b94-af3a4b05e1ae",
+   "content": "[placeholder] KPI definition #92",
+   "scope": "work-cvp",
+   "created_at": "2026-07-18T09:33:00Z",
+   "metadata": null
+  },
+  {
+   "id": "f637a468-5d38-5e06-4363-e5d900ed6b02",
+   "content": "[placeholder] training plan #93",
+   "scope": "health",
+   "created_at": "2026-01-19T15:20:00Z",
+   "metadata": null
+  },
+  {
+   "id": "4f3e885e-e1e4-37b7-f735-efe608d18011",
+   "content": "[placeholder] book highlight #94",
+   "scope": "reading",
+   "created_at": "2025-08-26T00:00:00Z",
+   "metadata": null
+  },
+  {
+   "id": "1579da0a-61b2-480c-55d8-5e8d00460d69",
+   "content": "[placeholder] article summary #95",
+   "scope": "reading",
+   "created_at": "2025-07-12T05:25:00Z",
+   "metadata": null
+  },
+  {
+   "id": "81365acc-3f88-af59-3373-6dcca7f0c99e",
+   "content": "[placeholder] sleep log #96",
+   "scope": "health",
+   "created_at": "2026-03-02T02:26:00Z",
+   "metadata": null
+  },
+  {
+   "id": "66465d28-24d4-589c-16fa-1421d129d067",
+   "content": "[placeholder] budget vs actual review #97",
+   "scope": "money-metrics",
+   "created_at": "2025-09-09T08:40:00Z",
+   "metadata": null
+  },
+  {
+   "id": "3b996870-a132-0b9d-4de2-f8ad4cb59aa7",
+   "content": "[placeholder] MCP server idea #98",
+   "scope": "ai-tools",
+   "created_at": "2025-03-17T09:06:00Z",
+   "metadata": null
+  },
+  {
+   "id": "e10c167d-c8b6-eaff-b74b-589be48e9e02",
+   "content": "[placeholder] packing list #99",
+   "scope": "travel",
+   "created_at": "2026-06-22T19:24:00Z",
+   "metadata": null
+  },
+  {
+   "id": "48bfcbcf-2643-3798-7e83-4904fc173498",
+   "content": "[placeholder] quote worth keeping #100",
+   "scope": "reading",
+   "created_at": "2026-08-07T18:44:00Z",
+   "metadata": null
+  },
+  {
+   "id": "e456559c-b70a-f5f2-d5d5-891fd329d65c",
+   "content": "[placeholder] packing list #101",
+   "scope": "travel",
+   "created_at": "2025-04-01T21:15:00Z",
+   "metadata": null
+  },
+  {
+   "id": "d5be785a-9187-df42-811e-7616c0bbe6ed",
+   "content": "[placeholder] itinerary leg #102",
+   "scope": "travel",
+   "created_at": "2026-03-17T09:19:00Z",
+   "metadata": null
+  },
+  {
+   "id": "a31a49dd-2212-6540-0ab7-798807fa22f7",
+   "content": "[placeholder] roadmap item #103",
+   "scope": "work-cvp",
+   "created_at": "2025-05-01T23:05:00Z",
+   "metadata": null
+  },
+  {
+   "id": "0cfff054-8efb-a442-738e-0b77d5f860c3",
+   "content": "[placeholder] budget vs actual review #104",
+   "scope": "money-metrics",
+   "created_at": "2025-11-30T05:52:00Z",
+   "metadata": null
+  },
+  {
+   "id": "cc35e834-74fa-9412-00d9-35344387ee7b",
+   "content": "[placeholder] stakeholder note #105",
+   "scope": "work-cvp",
+   "created_at": "2026-02-20T07:02:00Z",
+   "metadata": null
+  },
+  {
+   "id": "bc9e28ea-bee8-0626-10e8-ad0186a74a63",
+   "content": "[placeholder] savings target #106",
+   "scope": "money-metrics",
+   "created_at": "2026-06-24T02:05:00Z",
+   "metadata": null
+  },
+  {
+   "id": "3c1ae917-43fb-9fbc-d89c-36b2130f27b2",
+   "content": "[placeholder] meal prep idea #107",
+   "scope": "health",
+   "created_at": "2026-10-11T06:07:00Z",
+   "metadata": null
+  },
+  {
+   "id": "75d8d8a4-f9c9-c679-a661-f62cbd65680c",
+   "content": "[placeholder] meeting takeaway #108",
+   "scope": "work-cvp",
+   "created_at": "2025-08-16T00:24:00Z",
+   "metadata": null
+  },
+  {
+   "id": "498dbfa8-af06-bcf7-e914-57db7aa068f1",
+   "content": "[placeholder] MCP server idea #109",
+   "scope": "ai-tools",
+   "created_at": "2025-04-25T21:07:00Z",
+   "metadata": null
+  },
+  {
+   "id": "41023aed-54ef-125a-25bd-a659998648e0",
+   "content": "[placeholder] roadmap item #110",
+   "scope": "work-cvp",
+   "created_at": "2025-04-26T09:55:00Z",
+   "metadata": null
+  },
+  {
+   "id": "44ce4ab3-7c5d-42dc-0f87-7ae37b7fec4b",
+   "content": "[placeholder] itinerary leg #111",
+   "scope": "travel",
+   "created_at": "2025-03-10T01:54:00Z",
+   "metadata": null
+  },
+  {
+   "id": "843baee9-b578-909c-4a75-91f27d575d17",
+   "content": "[placeholder] roadmap item #112",
+   "scope": "work-cvp",
+   "created_at": "2026-07-06T00:50:00Z",
+   "metadata": null
+  },
+  {
+   "id": "fe48ef63-1e56-3408-c465-3cde776200b5",
+   "content": "[placeholder] loose thought #113",
+   "scope": null,
+   "created_at": "2026-02-03T06:09:00Z",
+   "metadata": null
+  },
+  {
+   "id": "4a227f39-047b-2c10-7912-ef4aefae5d4e",
+   "content": "[placeholder] training plan #114",
+   "scope": "health",
+   "created_at": "2025-05-02T12:24:00Z",
+   "metadata": null
+  },
+  {
+   "id": "730f37f1-fe9e-b4ad-f7d5-f12481b1c025",
+   "content": "[placeholder] variable spend spike #115",
+   "scope": "money-metrics",
+   "created_at": "2026-10-19T00:45:00Z",
+   "metadata": null
+  },
+  {
+   "id": "35f10300-ee37-9c65-f212-01e4eaa3556c",
+   "content": "[placeholder] MCP server idea #116",
+   "scope": "ai-tools",
+   "created_at": "2025-07-31T19:10:00Z",
+   "metadata": null
+  },
+  {
+   "id": "f3e6ca73-4305-e986-8629-2bb5bf5b411b",
+   "content": "[placeholder] variable spend spike #117",
+   "scope": "money-metrics",
+   "created_at": "2025-06-12T05:05:00Z",
+   "metadata": null
+  },
+  {
+   "id": "4791c2e9-823d-11ed-a1b5-01d6d1f9bdfe",
+   "content": "[placeholder] itinerary leg #118",
+   "scope": "travel",
+   "created_at": "2026-05-14T08:34:00Z",
+   "metadata": null
+  },
+  {
+   "id": "7c73b6c9-e04b-0dce-e5d0-0a4d7f7595b5",
+   "content": "[placeholder] article summary #119",
+   "scope": "reading",
+   "created_at": "2025-08-16T11:43:00Z",
+   "metadata": null
+  },
+  {
+   "id": "67c98fb9-7365-06ec-ae7c-8f097ddfcbc9",
+   "content": "[placeholder] backlog triage flow #120",
+   "scope": "openbrain",
+   "created_at": "2025-06-24T19:52:00Z",
+   "metadata": {
+    "type": "backlog_idea",
+    "state": "open"
+   }
+  },
+  {
+   "id": "1ef3ea44-50ea-7da7-6048-7e15580dc5ab",
+   "content": "[placeholder] flight option #121",
+   "scope": "travel",
+   "created_at": "2025-12-29T01:17:00Z",
+   "metadata": null
+  },
+  {
+   "id": "f09c0afb-1ebb-0794-65f4-56aad6cff718",
+   "content": "[placeholder] cluster label tweak #122",
+   "scope": "openbrain",
+   "created_at": "2025-10-23T07:52:00Z",
+   "metadata": null
+  },
+  {
+   "id": "63e19869-6495-0dc2-10a2-5b195f49f0fc",
+   "content": "[placeholder] search ranking note #123",
+   "scope": "openbrain",
+   "created_at": "2026-08-21T18:49:00Z",
+   "metadata": {
+    "type": "backlog_idea",
+    "state": "open"
+   }
+  },
+  {
+   "id": "46709312-c172-b298-6d94-dd6dece80799",
+   "content": "[placeholder] budget vs actual review #124",
+   "scope": "money-metrics",
+   "created_at": "2025-11-18T15:51:00Z",
+   "metadata": null
+  },
+  {
+   "id": "491e99f5-a977-66fb-d5ad-53600d36ce2c",
+   "content": "[placeholder] meal prep idea #125",
+   "scope": "health",
+   "created_at": "2025-05-14T01:30:00Z",
+   "metadata": null
+  },
+  {
+   "id": "82ce786f-6fad-7936-4406-c053f895fc55",
+   "content": "[placeholder] flight option #126",
+   "scope": "travel",
+   "created_at": "2025-08-29T13:15:00Z",
+   "metadata": null
+  },
+  {
+   "id": "6d80de7c-f4c7-3f2b-c8ff-1c385f93d180",
+   "content": "[placeholder] stakeholder note #127",
+   "scope": "work-cvp",
+   "created_at": "2026-09-15T00:21:00Z",
+   "metadata": null
+  },
+  {
+   "id": "14a0b00b-b835-e8a5-3414-5e878c9a3751",
+   "content": "[placeholder] MCP server idea #128",
+   "scope": "ai-tools",
+   "created_at": "2026-04-08T12:31:00Z",
+   "metadata": null
+  },
+  {
+   "id": "a4fd57c5-2379-7d45-c0ae-d9c59d6b023f",
+   "content": "[placeholder] agent workflow #129",
+   "scope": "ai-tools",
+   "created_at": "2026-01-23T07:21:00Z",
+   "metadata": null
+  },
+  {
+   "id": "2097798c-8cd3-e418-ed41-42bae9729f3f",
+   "content": "[placeholder] loose thought #130",
+   "scope": null,
+   "created_at": "2025-04-05T15:56:00Z",
+   "metadata": null
+  },
+  {
+   "id": "41785bc6-4c3a-c6fc-4820-823157fa49e5",
+   "content": "[placeholder] random idea #131",
+   "scope": null,
+   "created_at": "2025-12-28T02:19:00Z",
+   "metadata": null
+  },
+  {
+   "id": "8eaca288-7bb1-d124-4d03-9b723d1926ac",
+   "content": "[placeholder] LLM eval thought #132",
+   "scope": "ai-tools",
+   "created_at": "2026-06-21T16:20:00Z",
+   "metadata": null
+  },
+  {
+   "id": "35372235-133e-6153-2962-59c8a4a915d0",
+   "content": "[placeholder] savings target #133",
+   "scope": "money-metrics",
+   "created_at": "2025-06-30T20:20:00Z",
+   "metadata": null
+  },
+  {
+   "id": "c25e114f-ff18-fe33-5534-a034e8009d90",
+   "content": "[placeholder] meeting takeaway #134",
+   "scope": "work-cvp",
+   "created_at": "2026-01-24T20:30:00Z",
+   "metadata": null
+  },
+  {
+   "id": "173910e3-3e7c-6567-3141-97758c3ba859",
+   "content": "[placeholder] prompt pattern #135",
+   "scope": "ai-tools",
+   "created_at": "2025-06-10T15:37:00Z",
+   "metadata": null
+  },
+  {
+   "id": "5e49422a-3d37-6642-51bc-d77a1751f579",
+   "content": "[placeholder] article summary #136",
+   "scope": "reading",
+   "created_at": "2026-04-09T18:36:00Z",
+   "metadata": null
+  },
+  {
+   "id": "6201a9d3-69ac-0f03-dee0-a843bfe98f8c",
+   "content": "[placeholder] meeting takeaway #137",
+   "scope": "work-cvp",
+   "created_at": "2025-03-15T14:57:00Z",
+   "metadata": null
+  },
+  {
+   "id": "0fe321ec-c08a-58d7-5694-7a7a452e704d",
+   "content": "[placeholder] meeting takeaway #138",
+   "scope": "work-cvp",
+   "created_at": "2025-11-30T10:12:00Z",
+   "metadata": null
+  },
+  {
+   "id": "afcf0e77-2039-43f6-5c32-7a6df7ba38b6",
+   "content": "[placeholder] meal prep idea #139",
+   "scope": "health",
+   "created_at": "2026-04-23T04:17:00Z",
+   "metadata": null
+  },
+  {
+   "id": "627292f8-3f9a-a884-e594-09c145619fc0",
+   "content": "[placeholder] meeting takeaway #140",
+   "scope": "work-cvp",
+   "created_at": "2025-05-07T10:16:00Z",
+   "metadata": null
+  }
+ ],
+ "relations": [
+  {
+   "id": "d9435541-4fe0-4802-f435-a5736e8cd94e",
+   "source_id": "128b2f33-0c5c-7fd0-a6a3-a4506513270e",
+   "target_id": "9474031b-7f26-144b-9828-9fcd59a54a7b",
+   "relation_type": "origin",
+   "confidence": 0.85
+  },
+  {
+   "id": "b5a29061-6cd9-e62a-0841-1c07209342ca",
+   "source_id": "128b2f33-0c5c-7fd0-a6a3-a4506513270e",
+   "target_id": "3b1287ff-f52d-df5d-6164-99c9e25a7605",
+   "relation_type": "origin",
+   "confidence": 0.82
+  },
+  {
+   "id": "000bb5f9-7d65-2135-9651-32d6f7e147fd",
+   "source_id": "9474031b-7f26-144b-9828-9fcd59a54a7b",
+   "target_id": "1d87cec3-1f72-96ab-7961-fd925d39d0a8",
+   "relation_type": "origin",
+   "confidence": 0.44
+  },
+  {
+   "id": "c879b663-3f9b-6bb2-72ee-6a2ef8e4cb5c",
+   "source_id": "1d87cec3-1f72-96ab-7961-fd925d39d0a8",
+   "target_id": "b12aa1f6-d42f-ddbb-7a86-f7a243c71b9a",
+   "relation_type": "origin",
+   "confidence": 0.46
+  },
+  {
+   "id": "ae9c78bd-f8cd-9ec3-85b9-c09a26edf1bd",
+   "source_id": "9474031b-7f26-144b-9828-9fcd59a54a7b",
+   "target_id": "8857f9a4-3908-f227-c59d-b9165b0ee76f",
+   "relation_type": "origin",
+   "confidence": 0.46
+  },
+  {
+   "id": "c3c9f7e3-d8b4-c831-a5b8-9b2fb374fab6",
+   "source_id": "8857f9a4-3908-f227-c59d-b9165b0ee76f",
+   "target_id": "c9d488b1-cfbf-3360-9cfc-865239194242",
+   "relation_type": "origin",
+   "confidence": 0.89
+  },
+  {
+   "id": "0059865a-0a1f-b43b-c6e0-673a8d2f29e7",
+   "source_id": "128b2f33-0c5c-7fd0-a6a3-a4506513270e",
+   "target_id": "e77ffe48-d0a6-ec17-9556-585ea997f351",
+   "relation_type": "origin",
+   "confidence": 0.83
+  },
+  {
+   "id": "a53fddc9-099f-9c9f-eb7f-e26b91c3098c",
+   "source_id": "1d87cec3-1f72-96ab-7961-fd925d39d0a8",
+   "target_id": "7b8444d1-8e31-7041-87dd-aeb784b28054",
+   "relation_type": "origin",
+   "confidence": 0.79
+  },
+  {
+   "id": "a2e3f93a-873b-9903-4075-916ea060846c",
+   "source_id": "3b1287ff-f52d-df5d-6164-99c9e25a7605",
+   "target_id": "12b80aed-6da7-9a87-3d9a-8079abd0d7fb",
+   "relation_type": "origin",
+   "confidence": 0.64
+  },
+  {
+   "id": "86417b60-4ce3-b0cc-1202-952f197536b1",
+   "source_id": "9474031b-7f26-144b-9828-9fcd59a54a7b",
+   "target_id": "f7b103df-2323-1e1e-e201-552240cbacd0",
+   "relation_type": "origin",
+   "confidence": 0.92
+  },
+  {
+   "id": "ca5d5e7d-393c-bcdd-42c9-27b9635956be",
+   "source_id": "1d87cec3-1f72-96ab-7961-fd925d39d0a8",
+   "target_id": "70c1dca1-756b-7289-8dd6-3cb95685d624",
+   "relation_type": "origin",
+   "confidence": 0.73
+  },
+  {
+   "id": "75efd233-ff12-5eb4-4d30-7fe489980c50",
+   "source_id": "128b2f33-0c5c-7fd0-a6a3-a4506513270e",
+   "target_id": "b02e3d8d-ccb1-c51d-0eba-0ea84770a087",
+   "relation_type": "origin",
+   "confidence": 0.55
+  },
+  {
+   "id": "3e0b25cd-e23f-03cc-d6e3-a71ea502e8a8",
+   "source_id": "8857f9a4-3908-f227-c59d-b9165b0ee76f",
+   "target_id": "4f3e885e-e1e4-37b7-f735-efe608d18011",
+   "relation_type": "origin",
+   "confidence": 0.66
+  },
+  {
+   "id": "f5ead065-077e-f32a-3f3f-37ea8c0856a4",
+   "source_id": "1d87cec3-1f72-96ab-7961-fd925d39d0a8",
+   "target_id": "1579da0a-61b2-480c-55d8-5e8d00460d69",
+   "relation_type": "origin",
+   "confidence": 0.63
+  },
+  {
+   "id": "31b1891a-0593-dba2-0e28-b64f4eb19fca",
+   "source_id": "f7b103df-2323-1e1e-e201-552240cbacd0",
+   "target_id": "48bfcbcf-2643-3798-7e83-4904fc173498",
+   "relation_type": "origin",
+   "confidence": 0.67
+  },
+  {
+   "id": "aad7c7c0-3a53-c176-41db-898e14c2732a",
+   "source_id": "4f3e885e-e1e4-37b7-f735-efe608d18011",
+   "target_id": "7c73b6c9-e04b-0dce-e5d0-0a4d7f7595b5",
+   "relation_type": "origin",
+   "confidence": 0.63
+  },
+  {
+   "id": "b2217139-08ba-9bd9-7e31-8ad63a0ea6e1",
+   "source_id": "70c1dca1-756b-7289-8dd6-3cb95685d624",
+   "target_id": "5e49422a-3d37-6642-51bc-d77a1751f579",
+   "relation_type": "origin",
+   "confidence": 0.59
+  },
+  {
+   "id": "32b558fd-6577-bb54-aebc-b0aa5cc0ff06",
+   "source_id": "81e74ef5-e8e2-5d94-0ed9-04759531985d",
+   "target_id": "0f4205b4-907a-70c3-1012-f037b64ce422",
+   "relation_type": "origin",
+   "confidence": 0.4
+  },
+  {
+   "id": "114340ff-813f-b5cd-d85b-bb6bbd37929d",
+   "source_id": "0f4205b4-907a-70c3-1012-f037b64ce422",
+   "target_id": "e00902c7-7ebf-f206-8673-47214cdd2055",
+   "relation_type": "origin",
+   "confidence": 0.51
+  },
+  {
+   "id": "31a59c4a-d1eb-d086-c40f-36094fcc9a5c",
+   "source_id": "81e74ef5-e8e2-5d94-0ed9-04759531985d",
+   "target_id": "b2715945-795e-8229-451a-bd81f1d69ed6",
+   "relation_type": "origin",
+   "confidence": 0.53
+  },
+  {
+   "id": "4b80b828-e3ab-6283-c2ae-35d243d87a97",
+   "source_id": "0f4205b4-907a-70c3-1012-f037b64ce422",
+   "target_id": "3bbbe9ea-a894-8c89-3b61-867626bb7dbd",
+   "relation_type": "origin",
+   "confidence": 0.46
+  },
+  {
+   "id": "e57f7691-2ff3-c23c-9c2f-67237eea6fe1",
+   "source_id": "3bbbe9ea-a894-8c89-3b61-867626bb7dbd",
+   "target_id": "325b55dd-7857-2976-3a12-917c1a26f889",
+   "relation_type": "origin",
+   "confidence": 0.52
+  },
+  {
+   "id": "f2e2054d-0e71-597a-aa50-b96fe90fb651",
+   "source_id": "b2715945-795e-8229-451a-bd81f1d69ed6",
+   "target_id": "1ad2d5f1-e05b-3e13-f8c1-10fb3a828159",
+   "relation_type": "origin",
+   "confidence": 0.73
+  },
+  {
+   "id": "f95fe8a0-060c-8804-3683-d4bc0dea6e4e",
+   "source_id": "b2715945-795e-8229-451a-bd81f1d69ed6",
+   "target_id": "8d959c31-fe8a-d4a1-56d2-a68c02f4b342",
+   "relation_type": "origin",
+   "confidence": 0.73
+  },
+  {
+   "id": "2f217e72-0f65-0638-b5b9-4af30d456be0",
+   "source_id": "1ad2d5f1-e05b-3e13-f8c1-10fb3a828159",
+   "target_id": "33a71568-2e5f-950c-0ce5-af69430b91ed",
+   "relation_type": "origin",
+   "confidence": 0.62
+  },
+  {
+   "id": "145103c7-ff5e-1d1f-1cfb-0a06bb93c8eb",
+   "source_id": "325b55dd-7857-2976-3a12-917c1a26f889",
+   "target_id": "6e4505f5-416e-99b0-e13e-213ebdaaea00",
+   "relation_type": "origin",
+   "confidence": 0.91
+  },
+  {
+   "id": "ef95eee8-a708-28a7-2f7d-ba0830d0a2b8",
+   "source_id": "325b55dd-7857-2976-3a12-917c1a26f889",
+   "target_id": "66465d28-24d4-589c-16fa-1421d129d067",
+   "relation_type": "origin",
+   "confidence": 0.69
+  },
+  {
+   "id": "b9b253e3-aa18-1345-4fd3-e758082a2f4d",
+   "source_id": "8d959c31-fe8a-d4a1-56d2-a68c02f4b342",
+   "target_id": "0cfff054-8efb-a442-738e-0b77d5f860c3",
+   "relation_type": "origin",
+   "confidence": 0.61
+  },
+  {
+   "id": "2b54af77-7143-6e1d-54ea-2061fc27d683",
+   "source_id": "325b55dd-7857-2976-3a12-917c1a26f889",
+   "target_id": "bc9e28ea-bee8-0626-10e8-ad0186a74a63",
+   "relation_type": "origin",
+   "confidence": 0.46
+  },
+  {
+   "id": "6b911f97-59f9-bb79-14ac-e1cb47a164e4",
+   "source_id": "0f4205b4-907a-70c3-1012-f037b64ce422",
+   "target_id": "730f37f1-fe9e-b4ad-f7d5-f12481b1c025",
+   "relation_type": "origin",
+   "confidence": 0.93
+  },
+  {
+   "id": "35185376-c241-0ad1-f6da-7a638fa624f7",
+   "source_id": "0f4205b4-907a-70c3-1012-f037b64ce422",
+   "target_id": "f3e6ca73-4305-e986-8629-2bb5bf5b411b",
+   "relation_type": "origin",
+   "confidence": 0.61
+  },
+  {
+   "id": "cdcec408-d26f-1d76-4f06-e95ad252a617",
+   "source_id": "bc9e28ea-bee8-0626-10e8-ad0186a74a63",
+   "target_id": "46709312-c172-b298-6d94-dd6dece80799",
+   "relation_type": "origin",
+   "confidence": 0.64
+  },
+  {
+   "id": "5f6a35d9-321a-6ec1-7934-f0b8b48bb075",
+   "source_id": "0f4205b4-907a-70c3-1012-f037b64ce422",
+   "target_id": "35372235-133e-6153-2962-59c8a4a915d0",
+   "relation_type": "origin",
+   "confidence": 0.7
+  },
+  {
+   "id": "bcc0fd98-5d3f-69ce-52c4-641b316a2a12",
+   "source_id": "8d116ece-1738-f7d9-3d9c-172411e20b8f",
+   "target_id": "953f48f1-a09f-76b5-a170-b33839263059",
+   "relation_type": "origin",
+   "confidence": 0.89
+  },
+  {
+   "id": "cfd3bb74-3f7d-c86b-692a-4f0ea1b49bf7",
+   "source_id": "8d116ece-1738-f7d9-3d9c-172411e20b8f",
+   "target_id": "e01f5057-ca02-135e-92b1-d3f28ede0d7a",
+   "relation_type": "origin",
+   "confidence": 0.74
+  },
+  {
+   "id": "76cc0573-08ec-379a-6025-33dc0a68013d",
+   "source_id": "953f48f1-a09f-76b5-a170-b33839263059",
+   "target_id": "ae658f33-fe3b-890b-93f4-48b3a5aa3c81",
+   "relation_type": "origin",
+   "confidence": 0.43
+  },
+  {
+   "id": "10170d2b-bf4e-302c-31e7-aed141cbcc3a",
+   "source_id": "8d116ece-1738-f7d9-3d9c-172411e20b8f",
+   "target_id": "ae3a2b7f-dfe0-1893-f3ae-d0b6c7ac1491",
+   "relation_type": "origin",
+   "confidence": 0.89
+  },
+  {
+   "id": "f52b2549-55c0-a74d-45b6-69f75cebe213",
+   "source_id": "e01f5057-ca02-135e-92b1-d3f28ede0d7a",
+   "target_id": "1c2442f9-298c-b3a5-70cc-ec313571810a",
+   "relation_type": "origin",
+   "confidence": 0.92
+  },
+  {
+   "id": "b0882411-b775-70a4-bf16-8da7431dbc3f",
+   "source_id": "8d116ece-1738-f7d9-3d9c-172411e20b8f",
+   "target_id": "f2ee4e45-19f9-919c-895f-d7b326b94c7f",
+   "relation_type": "origin",
+   "confidence": 0.57
+  },
+  {
+   "id": "c1726f06-b8b8-f270-00f7-2d3c4c22cab7",
+   "source_id": "e01f5057-ca02-135e-92b1-d3f28ede0d7a",
+   "target_id": "a268aa87-2607-679d-6050-914a9d33a01c",
+   "relation_type": "origin",
+   "confidence": 0.73
+  },
+  {
+   "id": "1b757b20-3bde-a8c3-d375-eff10635afef",
+   "source_id": "953f48f1-a09f-76b5-a170-b33839263059",
+   "target_id": "b0a844e5-2587-be6b-5c9b-cf35873be078",
+   "relation_type": "origin",
+   "confidence": 0.66
+  },
+  {
+   "id": "ca304218-62f2-a21b-c6bf-4fa2f4337bd1",
+   "source_id": "a268aa87-2607-679d-6050-914a9d33a01c",
+   "target_id": "174c77a2-dd02-de92-a496-36a2fa7f0eab",
+   "relation_type": "origin",
+   "confidence": 0.54
+  },
+  {
+   "id": "ed97ec76-21f9-1a99-7e54-4d56d096bfd6",
+   "source_id": "f2ee4e45-19f9-919c-895f-d7b326b94c7f",
+   "target_id": "9620bf0d-c380-84a0-3d93-fd4c804c25d6",
+   "relation_type": "origin",
+   "confidence": 0.67
+  },
+  {
+   "id": "4da60990-bd0d-8cfe-ee59-b397cd751e08",
+   "source_id": "8d116ece-1738-f7d9-3d9c-172411e20b8f",
+   "target_id": "81f98b52-1905-d591-c5b2-e75a0acd8be1",
+   "relation_type": "origin",
+   "confidence": 0.85
+  },
+  {
+   "id": "dc7a615d-53ea-b031-3c73-d5f49b750362",
+   "source_id": "e01f5057-ca02-135e-92b1-d3f28ede0d7a",
+   "target_id": "9ccea098-535b-6a43-7178-ba0a1038f0b5",
+   "relation_type": "origin",
+   "confidence": 0.58
+  },
+  {
+   "id": "143a5180-9880-e88b-c841-721ec8a94814",
+   "source_id": "1c2442f9-298c-b3a5-70cc-ec313571810a",
+   "target_id": "f5f554ed-8323-9ef5-4ba2-e1619fb9af50",
+   "relation_type": "origin",
+   "confidence": 0.68
+  },
+  {
+   "id": "6862bf79-3f4f-8b9d-28f1-a81bc0bd1d84",
+   "source_id": "f2ee4e45-19f9-919c-895f-d7b326b94c7f",
+   "target_id": "30803889-fa61-9774-8d11-8e3781728a07",
+   "relation_type": "origin",
+   "confidence": 0.44
+  },
+  {
+   "id": "5364e64d-8b6b-feae-8d76-d7a17b50079e",
+   "source_id": "8d116ece-1738-f7d9-3d9c-172411e20b8f",
+   "target_id": "aba8b9b3-8185-797c-dedb-9109618177ff",
+   "relation_type": "origin",
+   "confidence": 0.49
+  },
+  {
+   "id": "1279688c-fce2-05cd-1aef-ca62e22b64a6",
+   "source_id": "f5f554ed-8323-9ef5-4ba2-e1619fb9af50",
+   "target_id": "67c98fb9-7365-06ec-ae7c-8f097ddfcbc9",
+   "relation_type": "origin",
+   "confidence": 0.55
+  },
+  {
+   "id": "7f9c1321-6bca-9b3f-18af-266c3555d6ae",
+   "source_id": "e01f5057-ca02-135e-92b1-d3f28ede0d7a",
+   "target_id": "f09c0afb-1ebb-0794-65f4-56aad6cff718",
+   "relation_type": "origin",
+   "confidence": 0.94
+  },
+  {
+   "id": "6ab6114f-2207-c6c0-3bf4-49fd2c564d56",
+   "source_id": "30803889-fa61-9774-8d11-8e3781728a07",
+   "target_id": "63e19869-6495-0dc2-10a2-5b195f49f0fc",
+   "relation_type": "origin",
+   "confidence": 0.65
+  },
+  {
+   "id": "c61c96db-d8d4-250d-89df-5e79bf7b6c6c",
+   "source_id": "8e81973e-0bec-d7b0-3898-d190f9ebdacc",
+   "target_id": "66d22876-72fd-f202-2a96-fb1a14a0f9e7",
+   "relation_type": "origin",
+   "confidence": 0.77
+  },
+  {
+   "id": "4b354e93-4b3e-90b7-d743-5571c79dbc12",
+   "source_id": "8e81973e-0bec-d7b0-3898-d190f9ebdacc",
+   "target_id": "519088f5-90fb-bd11-9c1c-aaf75e8766ed",
+   "relation_type": "origin",
+   "confidence": 0.55
+  },
+  {
+   "id": "42a55162-bcf1-fcb5-4109-d8d65f7b07b8",
+   "source_id": "66d22876-72fd-f202-2a96-fb1a14a0f9e7",
+   "target_id": "7b45145c-1a81-682c-64e5-0cad66237a04",
+   "relation_type": "origin",
+   "confidence": 0.51
+  },
+  {
+   "id": "27401fa0-3c49-fdbd-3ece-9f2c2f8c6c08",
+   "source_id": "66d22876-72fd-f202-2a96-fb1a14a0f9e7",
+   "target_id": "7a605a91-3306-98a1-c009-3492b6246771",
+   "relation_type": "origin",
+   "confidence": 0.55
+  },
+  {
+   "id": "6564d134-1097-0046-538a-e1c130312932",
+   "source_id": "7a605a91-3306-98a1-c009-3492b6246771",
+   "target_id": "cd02c5e1-1635-3d03-551f-d8f9a2c68e45",
+   "relation_type": "origin",
+   "confidence": 0.54
+  },
+  {
+   "id": "a64ed996-3b3b-c813-86bc-2b9981e004fb",
+   "source_id": "66d22876-72fd-f202-2a96-fb1a14a0f9e7",
+   "target_id": "86048719-26de-bfdb-8825-ae562179b37d",
+   "relation_type": "origin",
+   "confidence": 0.84
+  },
+  {
+   "id": "1a327537-097a-5942-fdaf-451376c32dcd",
+   "source_id": "cd02c5e1-1635-3d03-551f-d8f9a2c68e45",
+   "target_id": "518ae452-5b4b-1b75-321c-52966bd8c676",
+   "relation_type": "origin",
+   "confidence": 0.4
+  },
+  {
+   "id": "5fb65b55-ea14-843a-72c3-9a28d72eb3a1",
+   "source_id": "7b45145c-1a81-682c-64e5-0cad66237a04",
+   "target_id": "9212824c-83c8-cb28-eb4e-d2e3895e8b6b",
+   "relation_type": "origin",
+   "confidence": 0.42
+  },
+  {
+   "id": "3087de35-0ce6-6f73-1e84-fb363b9edacb",
+   "source_id": "7a605a91-3306-98a1-c009-3492b6246771",
+   "target_id": "a26aa0ae-044f-1574-f037-afc644d82a53",
+   "relation_type": "origin",
+   "confidence": 0.73
+  },
+  {
+   "id": "5f4aebeb-133a-d73d-ee1f-dde031b4932c",
+   "source_id": "a26aa0ae-044f-1574-f037-afc644d82a53",
+   "target_id": "213bca7f-d644-de2f-0dec-6823fb5c9d56",
+   "relation_type": "origin",
+   "confidence": 0.68
+  },
+  {
+   "id": "c6664843-428b-f773-9a60-f91972f92026",
+   "source_id": "519088f5-90fb-bd11-9c1c-aaf75e8766ed",
+   "target_id": "3b996870-a132-0b9d-4de2-f8ad4cb59aa7",
+   "relation_type": "origin",
+   "confidence": 0.83
+  },
+  {
+   "id": "b5af4c8a-989d-181c-a330-66bd1b1466f6",
+   "source_id": "8e81973e-0bec-d7b0-3898-d190f9ebdacc",
+   "target_id": "498dbfa8-af06-bcf7-e914-57db7aa068f1",
+   "relation_type": "origin",
+   "confidence": 0.74
+  },
+  {
+   "id": "2430ca6d-570b-534d-5e63-af1609969e7c",
+   "source_id": "7b45145c-1a81-682c-64e5-0cad66237a04",
+   "target_id": "35f10300-ee37-9c65-f212-01e4eaa3556c",
+   "relation_type": "origin",
+   "confidence": 0.42
+  },
+  {
+   "id": "a6d21040-bb73-52c1-9973-cf5c09c9d592",
+   "source_id": "7a605a91-3306-98a1-c009-3492b6246771",
+   "target_id": "14a0b00b-b835-e8a5-3414-5e878c9a3751",
+   "relation_type": "origin",
+   "confidence": 0.9
+  },
+  {
+   "id": "68b3e3aa-53c6-9b0a-d19f-0be902e9c9fb",
+   "source_id": "35f10300-ee37-9c65-f212-01e4eaa3556c",
+   "target_id": "a4fd57c5-2379-7d45-c0ae-d9c59d6b023f",
+   "relation_type": "origin",
+   "confidence": 0.77
+  },
+  {
+   "id": "34128822-13f3-8870-4fec-0f409efac292",
+   "source_id": "cd02c5e1-1635-3d03-551f-d8f9a2c68e45",
+   "target_id": "8eaca288-7bb1-d124-4d03-9b723d1926ac",
+   "relation_type": "origin",
+   "confidence": 0.42
+  },
+  {
+   "id": "687dd512-1032-888d-7bc7-1df38c4caa83",
+   "source_id": "a4fd57c5-2379-7d45-c0ae-d9c59d6b023f",
+   "target_id": "173910e3-3e7c-6567-3141-97758c3ba859",
+   "relation_type": "origin",
+   "confidence": 0.46
+  },
+  {
+   "id": "a3a16d92-2790-bb01-8cd5-d187a9fda2ef",
+   "source_id": "92276658-1e27-a1c0-8a6a-63ec24ede6a4",
+   "target_id": "58d5563d-ab2c-d31e-e315-128862c33a4f",
+   "relation_type": "origin",
+   "confidence": 0.69
+  },
+  {
+   "id": "68e7ed23-456b-312c-b206-1ecc65d464fd",
+   "source_id": "92276658-1e27-a1c0-8a6a-63ec24ede6a4",
+   "target_id": "0f977044-218e-0b7b-d58d-cdb46b446806",
+   "relation_type": "origin",
+   "confidence": 0.94
+  },
+  {
+   "id": "0d25f954-f404-2f1e-6af7-ea314ebe9880",
+   "source_id": "0f977044-218e-0b7b-d58d-cdb46b446806",
+   "target_id": "2789d059-c6e5-0df2-e5a3-863e1f525265",
+   "relation_type": "origin",
+   "confidence": 0.57
+  },
+  {
+   "id": "dd3f4006-04a9-9e63-6a9c-2a336a01260f",
+   "source_id": "0f977044-218e-0b7b-d58d-cdb46b446806",
+   "target_id": "2e7a26e9-c76c-603f-e7e8-f9f60a227385",
+   "relation_type": "origin",
+   "confidence": 0.82
+  },
+  {
+   "id": "ba60491e-6406-f458-327b-cda3a4fc8621",
+   "source_id": "0f977044-218e-0b7b-d58d-cdb46b446806",
+   "target_id": "110e2cb6-38ef-baeb-db31-ccd29bb183e1",
+   "relation_type": "origin",
+   "confidence": 0.62
+  },
+  {
+   "id": "6c7b31e2-2814-c437-e6d1-43186f25630d",
+   "source_id": "92276658-1e27-a1c0-8a6a-63ec24ede6a4",
+   "target_id": "b5a432cf-86e3-e726-0b0f-873b2114e068",
+   "relation_type": "origin",
+   "confidence": 0.46
+  },
+  {
+   "id": "5d5ec1ad-e201-aafd-93ea-6a9467fde1c3",
+   "source_id": "92276658-1e27-a1c0-8a6a-63ec24ede6a4",
+   "target_id": "721888ff-4a3a-df99-34b3-ff60c26e7a42",
+   "relation_type": "origin",
+   "confidence": 0.65
+  },
+  {
+   "id": "8d323d9e-0d3b-e8ee-03cc-2f9b21460c5a",
+   "source_id": "0f977044-218e-0b7b-d58d-cdb46b446806",
+   "target_id": "f637a468-5d38-5e06-4363-e5d900ed6b02",
+   "relation_type": "origin",
+   "confidence": 0.48
+  },
+  {
+   "id": "ed5ec904-9f48-250d-92a7-3f9d16cabe32",
+   "source_id": "b5a432cf-86e3-e726-0b0f-873b2114e068",
+   "target_id": "81365acc-3f88-af59-3373-6dcca7f0c99e",
+   "relation_type": "origin",
+   "confidence": 0.6
+  },
+  {
+   "id": "4886058b-5912-eb60-2558-d6c02bf39775",
+   "source_id": "f637a468-5d38-5e06-4363-e5d900ed6b02",
+   "target_id": "3c1ae917-43fb-9fbc-d89c-36b2130f27b2",
+   "relation_type": "origin",
+   "confidence": 0.49
+  },
+  {
+   "id": "623c70ce-1bd9-d912-112d-4095eced8ded",
+   "source_id": "0f977044-218e-0b7b-d58d-cdb46b446806",
+   "target_id": "4a227f39-047b-2c10-7912-ef4aefae5d4e",
+   "relation_type": "origin",
+   "confidence": 0.67
+  },
+  {
+   "id": "f16d68f3-d658-c99a-206c-28564d36a8ed",
+   "source_id": "2789d059-c6e5-0df2-e5a3-863e1f525265",
+   "target_id": "491e99f5-a977-66fb-d5ad-53600d36ce2c",
+   "relation_type": "origin",
+   "confidence": 0.42
+  },
+  {
+   "id": "ed19557a-9b8e-9a82-0da9-f44a5084c63f",
+   "source_id": "721888ff-4a3a-df99-34b3-ff60c26e7a42",
+   "target_id": "afcf0e77-2039-43f6-5c32-7a6df7ba38b6",
+   "relation_type": "origin",
+   "confidence": 0.75
+  },
+  {
+   "id": "b02ef5f7-9ece-cbff-b659-f768e77b0475",
+   "source_id": "301850c5-a38f-d547-923a-736994e3bf91",
+   "target_id": "7d2caf82-eeea-cbe2-26e8-75555790f82e",
+   "relation_type": "origin",
+   "confidence": 0.85
+  },
+  {
+   "id": "38d9e9ab-db49-5244-c92b-dd5aa3ec4d32",
+   "source_id": "301850c5-a38f-d547-923a-736994e3bf91",
+   "target_id": "47469a4d-8cdb-305f-dd2e-16096e36aab0",
+   "relation_type": "origin",
+   "confidence": 0.74
+  },
+  {
+   "id": "791397a3-d445-a53e-3234-752bd8aa7be3",
+   "source_id": "47469a4d-8cdb-305f-dd2e-16096e36aab0",
+   "target_id": "e7a46309-973f-7986-26b1-cffc070d7109",
+   "relation_type": "origin",
+   "confidence": 0.5
+  },
+  {
+   "id": "84949aab-f044-c032-6655-b9f00aadacf0",
+   "source_id": "7d2caf82-eeea-cbe2-26e8-75555790f82e",
+   "target_id": "796f74ad-faf5-5496-988a-f3fbd39630d6",
+   "relation_type": "origin",
+   "confidence": 0.49
+  },
+  {
+   "id": "f87f4a4d-3f3f-4072-2643-7a8e1f80a4e8",
+   "source_id": "47469a4d-8cdb-305f-dd2e-16096e36aab0",
+   "target_id": "03a56cc1-057a-40b2-2188-287e8c5c715f",
+   "relation_type": "origin",
+   "confidence": 0.8
+  },
+  {
+   "id": "d7ad18a7-8ff5-ba77-e244-d05f0a857746",
+   "source_id": "7d2caf82-eeea-cbe2-26e8-75555790f82e",
+   "target_id": "d37ee915-31de-c4f4-df2a-8b79fc8e80b3",
+   "relation_type": "origin",
+   "confidence": 0.82
+  },
+  {
+   "id": "1e239eb4-52fe-f478-d694-8dedaafb4294",
+   "source_id": "301850c5-a38f-d547-923a-736994e3bf91",
+   "target_id": "1ece615d-b9a6-442e-9e7d-6b377936d536",
+   "relation_type": "origin",
+   "confidence": 0.61
+  },
+  {
+   "id": "c730a7cb-a085-da1f-d958-b1e68cd03260",
+   "source_id": "1ece615d-b9a6-442e-9e7d-6b377936d536",
+   "target_id": "b4d19ec1-2955-d6f0-3945-336bd51b1815",
+   "relation_type": "origin",
+   "confidence": 0.57
+  },
+  {
+   "id": "6cfd4940-3fcf-6d85-9526-e3d04ee6f4ff",
+   "source_id": "d37ee915-31de-c4f4-df2a-8b79fc8e80b3",
+   "target_id": "ad0c9bb6-e952-6a69-d97e-967b6c18d982",
+   "relation_type": "origin",
+   "confidence": 0.61
+  },
+  {
+   "id": "2dc378f2-7037-e034-80ea-83977260ca26",
+   "source_id": "03a56cc1-057a-40b2-2188-287e8c5c715f",
+   "target_id": "fe977c56-04a6-5651-cdbd-e74758d50f1b",
+   "relation_type": "origin",
+   "confidence": 0.41
+  },
+  {
+   "id": "3c39679d-771c-23e1-7d4f-fa0ffc7383bf",
+   "source_id": "ad0c9bb6-e952-6a69-d97e-967b6c18d982",
+   "target_id": "e10c167d-c8b6-eaff-b74b-589be48e9e02",
+   "relation_type": "origin",
+   "confidence": 0.65
+  },
+  {
+   "id": "d627d2b8-7552-6e31-d1a8-0888c7ac6f37",
+   "source_id": "ad0c9bb6-e952-6a69-d97e-967b6c18d982",
+   "target_id": "e456559c-b70a-f5f2-d5d5-891fd329d65c",
+   "relation_type": "origin",
+   "confidence": 0.5
+  },
+  {
+   "id": "20e27c17-112e-d1df-1b69-567e667cd60b",
+   "source_id": "1ece615d-b9a6-442e-9e7d-6b377936d536",
+   "target_id": "d5be785a-9187-df42-811e-7616c0bbe6ed",
+   "relation_type": "origin",
+   "confidence": 0.6
+  },
+  {
+   "id": "811c8fa7-7124-c205-cd62-5a7f177a8334",
+   "source_id": "03a56cc1-057a-40b2-2188-287e8c5c715f",
+   "target_id": "44ce4ab3-7c5d-42dc-0f87-7ae37b7fec4b",
+   "relation_type": "origin",
+   "confidence": 0.68
+  },
+  {
+   "id": "150dbf6a-2159-702b-a2ed-89620a68253a",
+   "source_id": "301850c5-a38f-d547-923a-736994e3bf91",
+   "target_id": "4791c2e9-823d-11ed-a1b5-01d6d1f9bdfe",
+   "relation_type": "origin",
+   "confidence": 0.91
+  },
+  {
+   "id": "1478c7b9-82f0-779d-b86b-b4d6c7132891",
+   "source_id": "fe977c56-04a6-5651-cdbd-e74758d50f1b",
+   "target_id": "1ef3ea44-50ea-7da7-6048-7e15580dc5ab",
+   "relation_type": "origin",
+   "confidence": 0.43
+  },
+  {
+   "id": "f36c1575-a71a-56c6-60bb-9aeee5160931",
+   "source_id": "1ef3ea44-50ea-7da7-6048-7e15580dc5ab",
+   "target_id": "82ce786f-6fad-7936-4406-c053f895fc55",
+   "relation_type": "origin",
+   "confidence": 0.83
+  },
+  {
+   "id": "9d373731-ff01-fe80-10fe-52d4db68f275",
+   "source_id": "506bf2ef-c6f8-7718-6d76-b07e881ed162",
+   "target_id": "2e05319a-cb5c-7427-3f98-e2774cbd87ad",
+   "relation_type": "origin",
+   "confidence": 0.8
+  },
+  {
+   "id": "e2bce763-fb52-882f-21b1-aed23196cd44",
+   "source_id": "506bf2ef-c6f8-7718-6d76-b07e881ed162",
+   "target_id": "1e398f10-12bd-4ace-faec-bd389be4bcfc",
+   "relation_type": "origin",
+   "confidence": 0.67
+  },
+  {
+   "id": "ee3ab808-b898-a70c-c9d3-5f16afa6798a",
+   "source_id": "506bf2ef-c6f8-7718-6d76-b07e881ed162",
+   "target_id": "7e62aa0a-1df9-fd78-9c65-39382b0537e6",
+   "relation_type": "origin",
+   "confidence": 0.52
+  },
+  {
+   "id": "28a4fbd7-4091-8a58-c194-ff539c461992",
+   "source_id": "1e398f10-12bd-4ace-faec-bd389be4bcfc",
+   "target_id": "010c4759-482c-9cbc-4343-5cc52eae05cf",
+   "relation_type": "origin",
+   "confidence": 0.58
+  },
+  {
+   "id": "74d6d11f-d0cc-e893-e7b2-27e94665ea19",
+   "source_id": "010c4759-482c-9cbc-4343-5cc52eae05cf",
+   "target_id": "24e4e25a-15fc-899e-4fd5-8dbe7bdc968b",
+   "relation_type": "origin",
+   "confidence": 0.48
+  },
+  {
+   "id": "3554ada8-7ae8-5484-eb7f-1414f6de2fbe",
+   "source_id": "010c4759-482c-9cbc-4343-5cc52eae05cf",
+   "target_id": "0726e25c-fd56-a926-076b-3e36bb2313f5",
+   "relation_type": "origin",
+   "confidence": 0.73
+  },
+  {
+   "id": "5f4ce302-51af-1074-3cc6-31418189ac45",
+   "source_id": "010c4759-482c-9cbc-4343-5cc52eae05cf",
+   "target_id": "f4de2c08-9aea-6429-b149-1e243192b704",
+   "relation_type": "origin",
+   "confidence": 0.42
+  },
+  {
+   "id": "efb82825-a2f6-5e36-2946-538867498314",
+   "source_id": "1e398f10-12bd-4ace-faec-bd389be4bcfc",
+   "target_id": "597a1ecf-fcf0-0fec-b91e-e9e5efe09f07",
+   "relation_type": "origin",
+   "confidence": 0.55
+  },
+  {
+   "id": "cac8a61c-2b32-ada9-6078-a406e539cb16",
+   "source_id": "24e4e25a-15fc-899e-4fd5-8dbe7bdc968b",
+   "target_id": "15b40aeb-a4a4-5eff-ccb5-73d95810d60e",
+   "relation_type": "origin",
+   "confidence": 0.83
+  },
+  {
+   "id": "a2e5c7d7-0c6f-2fcc-87dd-58d9c4ad1006",
+   "source_id": "2e05319a-cb5c-7427-3f98-e2774cbd87ad",
+   "target_id": "b98c67c2-15bd-448f-f261-49edbe4c5ce6",
+   "relation_type": "origin",
+   "confidence": 0.87
+  },
+  {
+   "id": "b050864e-947d-be2d-857d-e96d8e2048dc",
+   "source_id": "f4de2c08-9aea-6429-b149-1e243192b704",
+   "target_id": "c6aa7d55-0101-b811-9bca-3cb72ee0289d",
+   "relation_type": "origin",
+   "confidence": 0.89
+  },
+  {
+   "id": "a1390385-8923-b7f6-fe32-45fe40852477",
+   "source_id": "2e05319a-cb5c-7427-3f98-e2774cbd87ad",
+   "target_id": "a887ae22-1b35-411b-7272-3b9cef44c0d5",
+   "relation_type": "origin",
+   "confidence": 0.87
+  },
+  {
+   "id": "60307b75-43c6-ed1e-5f18-6904cc342416",
+   "source_id": "c6aa7d55-0101-b811-9bca-3cb72ee0289d",
+   "target_id": "f86664ae-64a1-49f5-e383-8b9ed5a9422a",
+   "relation_type": "origin",
+   "confidence": 0.94
+  },
+  {
+   "id": "c3bf64e9-54b1-3301-5c39-6f5e256d1082",
+   "source_id": "15b40aeb-a4a4-5eff-ccb5-73d95810d60e",
+   "target_id": "fe48ef63-1e56-3408-c465-3cde776200b5",
+   "relation_type": "origin",
+   "confidence": 0.44
+  },
+  {
+   "id": "f53e2c38-be5c-3931-9d89-20982d3fe297",
+   "source_id": "7e62aa0a-1df9-fd78-9c65-39382b0537e6",
+   "target_id": "2097798c-8cd3-e418-ed41-42bae9729f3f",
+   "relation_type": "origin",
+   "confidence": 0.43
+  },
+  {
+   "id": "fbeb0a98-f748-f931-a3a5-17594f60e846",
+   "source_id": "597a1ecf-fcf0-0fec-b91e-e9e5efe09f07",
+   "target_id": "41785bc6-4c3a-c6fc-4820-823157fa49e5",
+   "relation_type": "origin",
+   "confidence": 0.88
+  },
+  {
+   "id": "08a6ab0f-bf43-3e03-0075-5f64bba86df7",
+   "source_id": "3f63af83-bd05-61e6-211c-70cf49952399",
+   "target_id": "3a0b9965-cda6-c6fd-bd68-516766934036",
+   "relation_type": "origin",
+   "confidence": 0.52
+  },
+  {
+   "id": "6aed8872-6ea6-d05e-a028-80569db59658",
+   "source_id": "3a0b9965-cda6-c6fd-bd68-516766934036",
+   "target_id": "9c3a23cd-e67a-9b75-fc39-47249fc2d0a1",
+   "relation_type": "origin",
+   "confidence": 0.68
+  },
+  {
+   "id": "9cce12d5-3a2d-b00a-7d07-6c0b21cc4751",
+   "source_id": "3f63af83-bd05-61e6-211c-70cf49952399",
+   "target_id": "888564e8-8216-858f-73cc-ef0346f5a1b4",
+   "relation_type": "origin",
+   "confidence": 0.76
+  },
+  {
+   "id": "5aded3ca-912e-da41-00ab-68b80decb3b5",
+   "source_id": "3f63af83-bd05-61e6-211c-70cf49952399",
+   "target_id": "f132bf2d-e040-015c-e064-a11485f1115b",
+   "relation_type": "origin",
+   "confidence": 0.57
+  },
+  {
+   "id": "69c9fef0-3969-0919-88bb-a3175b6e48b0",
+   "source_id": "f132bf2d-e040-015c-e064-a11485f1115b",
+   "target_id": "6471fde4-1f22-9dd0-6aa8-b9e0231b3e14",
+   "relation_type": "origin",
+   "confidence": 0.72
+  },
+  {
+   "id": "9fb9d8f6-5dc1-8bce-3445-6d5b223be9e7",
+   "source_id": "f132bf2d-e040-015c-e064-a11485f1115b",
+   "target_id": "e28af604-65f4-2986-1818-9af4f3d74f82",
+   "relation_type": "origin",
+   "confidence": 0.86
+  },
+  {
+   "id": "cd2f4934-efc4-6c08-039c-d862227ee409",
+   "source_id": "3a0b9965-cda6-c6fd-bd68-516766934036",
+   "target_id": "e1c60aa3-d510-bb04-32d9-0dcd57bb7d97",
+   "relation_type": "origin",
+   "confidence": 0.53
+  },
+  {
+   "id": "a361bca2-104c-968a-1886-a7ba736b1be2",
+   "source_id": "9c3a23cd-e67a-9b75-fc39-47249fc2d0a1",
+   "target_id": "2f733b05-759e-b559-0b94-af3a4b05e1ae",
+   "relation_type": "origin",
+   "confidence": 0.48
+  },
+  {
+   "id": "f7962f83-43a5-38c4-cfc3-160166e6626d",
+   "source_id": "f132bf2d-e040-015c-e064-a11485f1115b",
+   "target_id": "a31a49dd-2212-6540-0ab7-798807fa22f7",
+   "relation_type": "origin",
+   "confidence": 0.41
+  },
+  {
+   "id": "a5464f6d-983f-d973-59af-6769e486737d",
+   "source_id": "2f733b05-759e-b559-0b94-af3a4b05e1ae",
+   "target_id": "cc35e834-74fa-9412-00d9-35344387ee7b",
+   "relation_type": "origin",
+   "confidence": 0.72
+  },
+  {
+   "id": "7e2b86d1-bbc8-1f54-8480-4942efe98772",
+   "source_id": "a31a49dd-2212-6540-0ab7-798807fa22f7",
+   "target_id": "75d8d8a4-f9c9-c679-a661-f62cbd65680c",
+   "relation_type": "origin",
+   "confidence": 0.54
+  },
+  {
+   "id": "0675295f-8812-2e14-0fc0-55310b43b6dd",
+   "source_id": "3f63af83-bd05-61e6-211c-70cf49952399",
+   "target_id": "41023aed-54ef-125a-25bd-a659998648e0",
+   "relation_type": "origin",
+   "confidence": 0.62
+  },
+  {
+   "id": "c7642bde-e967-ebdb-0ef1-f01228c26bb2",
+   "source_id": "888564e8-8216-858f-73cc-ef0346f5a1b4",
+   "target_id": "843baee9-b578-909c-4a75-91f27d575d17",
+   "relation_type": "origin",
+   "confidence": 0.46
+  },
+  {
+   "id": "327f82f8-f0e0-2c42-a824-09f18d094979",
+   "source_id": "a31a49dd-2212-6540-0ab7-798807fa22f7",
+   "target_id": "6d80de7c-f4c7-3f2b-c8ff-1c385f93d180",
+   "relation_type": "origin",
+   "confidence": 0.48
+  },
+  {
+   "id": "81c75bab-a487-92c5-9bab-534084ac8fe6",
+   "source_id": "888564e8-8216-858f-73cc-ef0346f5a1b4",
+   "target_id": "c25e114f-ff18-fe33-5534-a034e8009d90",
+   "relation_type": "origin",
+   "confidence": 0.76
+  },
+  {
+   "id": "823209b5-2cb5-2c32-9cf9-9a99d039b963",
+   "source_id": "843baee9-b578-909c-4a75-91f27d575d17",
+   "target_id": "6201a9d3-69ac-0f03-dee0-a843bfe98f8c",
+   "relation_type": "origin",
+   "confidence": 0.57
+  },
+  {
+   "id": "e3ac99b2-fe7a-cde2-0c69-e424a03f2a2b",
+   "source_id": "a31a49dd-2212-6540-0ab7-798807fa22f7",
+   "target_id": "0fe321ec-c08a-58d7-5694-7a7a452e704d",
+   "relation_type": "origin",
+   "confidence": 0.8
+  },
+  {
+   "id": "600a6732-01a0-1d42-89d4-ff98b7245d1c",
+   "source_id": "c25e114f-ff18-fe33-5534-a034e8009d90",
+   "target_id": "627292f8-3f9a-a884-e594-09c145619fc0",
+   "relation_type": "origin",
+   "confidence": 0.86
+  },
+  {
+   "id": "1af3bda5-ff21-dd5a-39d7-c1402ce678fe",
+   "source_id": "67c98fb9-7365-06ec-ae7c-8f097ddfcbc9",
+   "target_id": "66d22876-72fd-f202-2a96-fb1a14a0f9e7",
+   "relation_type": "analog",
+   "confidence": 0.54
+  },
+  {
+   "id": "b1f2ad8b-ecd8-7a48-bfe9-5413e42a872f",
+   "source_id": "2e05319a-cb5c-7427-3f98-e2774cbd87ad",
+   "target_id": "1d87cec3-1f72-96ab-7961-fd925d39d0a8",
+   "relation_type": "analog",
+   "confidence": 0.92
+  },
+  {
+   "id": "6fa126a8-ade2-5655-8dc5-08c6a2c81c32",
+   "source_id": "e28af604-65f4-2986-1818-9af4f3d74f82",
+   "target_id": "e01f5057-ca02-135e-92b1-d3f28ede0d7a",
+   "relation_type": "analog",
+   "confidence": 0.78
+  },
+  {
+   "id": "e4e8d8d2-f713-77dc-edb6-ce85a45a5209",
+   "source_id": "c25e114f-ff18-fe33-5534-a034e8009d90",
+   "target_id": "e28af604-65f4-2986-1818-9af4f3d74f82",
+   "relation_type": "analog",
+   "confidence": 0.52
+  },
+  {
+   "id": "d77b26d3-3c71-a896-e79a-95aa42a78500",
+   "source_id": "2097798c-8cd3-e418-ed41-42bae9729f3f",
+   "target_id": "953f48f1-a09f-76b5-a170-b33839263059",
+   "relation_type": "contrast",
+   "confidence": 0.81
+  },
+  {
+   "id": "99ea4514-541c-18d5-6382-5046e1527ae4",
+   "source_id": "f4de2c08-9aea-6429-b149-1e243192b704",
+   "target_id": "fe977c56-04a6-5651-cdbd-e74758d50f1b",
+   "relation_type": "contrast",
+   "confidence": 0.53
+  },
+  {
+   "id": "01a23b4e-b297-1b77-87d6-9991d6f75151",
+   "source_id": "0fe321ec-c08a-58d7-5694-7a7a452e704d",
+   "target_id": "1ef3ea44-50ea-7da7-6048-7e15580dc5ab",
+   "relation_type": "analog",
+   "confidence": 0.87
+  },
+  {
+   "id": "9f6428ef-643d-79f1-3643-6924ca092b18",
+   "source_id": "843baee9-b578-909c-4a75-91f27d575d17",
+   "target_id": "81f98b52-1905-d591-c5b2-e75a0acd8be1",
+   "relation_type": "analog",
+   "confidence": 0.72
+  },
+  {
+   "id": "9f395ef1-1b4f-463f-1ca5-05c106e315e3",
+   "source_id": "9c3a23cd-e67a-9b75-fc39-47249fc2d0a1",
+   "target_id": "c9d488b1-cfbf-3360-9cfc-865239194242",
+   "relation_type": "contrast",
+   "confidence": 0.91
+  },
+  {
+   "id": "b14fe2d6-236e-536d-0aa9-89b407e7166b",
+   "source_id": "213bca7f-d644-de2f-0dec-6823fb5c9d56",
+   "target_id": "8857f9a4-3908-f227-c59d-b9165b0ee76f",
+   "relation_type": "contrast",
+   "confidence": 0.75
+  },
+  {
+   "id": "c3034515-9729-39b0-db43-738610d5fe14",
+   "source_id": "e00902c7-7ebf-f206-8673-47214cdd2055",
+   "target_id": "58d5563d-ab2c-d31e-e315-128862c33a4f",
+   "relation_type": "contrast",
+   "confidence": 0.6
+  },
+  {
+   "id": "340252a6-34aa-4a20-3f1f-b2411b6bf273",
+   "source_id": "6201a9d3-69ac-0f03-dee0-a843bfe98f8c",
+   "target_id": "ae658f33-fe3b-890b-93f4-48b3a5aa3c81",
+   "relation_type": "analog",
+   "confidence": 0.46
+  },
+  {
+   "id": "190d78d3-21f5-9868-1991-8b8a7a243b32",
+   "source_id": "506bf2ef-c6f8-7718-6d76-b07e881ed162",
+   "target_id": "3b1287ff-f52d-df5d-6164-99c9e25a7605",
+   "relation_type": "analog",
+   "confidence": 0.84
+  },
+  {
+   "id": "055ae98e-42db-5b4b-6c7b-e37e5625e671",
+   "source_id": "9620bf0d-c380-84a0-3d93-fd4c804c25d6",
+   "target_id": "9212824c-83c8-cb28-eb4e-d2e3895e8b6b",
+   "relation_type": "analog",
+   "confidence": 0.59
+  },
+  {
+   "id": "f6c8a64a-c4ec-bfa2-5221-cbdae90ba887",
+   "source_id": "1ad2d5f1-e05b-3e13-f8c1-10fb3a828159",
+   "target_id": "7d2caf82-eeea-cbe2-26e8-75555790f82e",
+   "relation_type": "analog",
+   "confidence": 0.73
+  },
+  {
+   "id": "6fbb28f3-07ff-e38e-69b5-2fc2c9ff9090",
+   "source_id": "f09c0afb-1ebb-0794-65f4-56aad6cff718",
+   "target_id": "2e7a26e9-c76c-603f-e7e8-f9f60a227385",
+   "relation_type": "contrast",
+   "confidence": 0.69
+  },
+  {
+   "id": "90ebc2c3-89b2-8a18-0c51-66f0b4649035",
+   "source_id": "519088f5-90fb-bd11-9c1c-aaf75e8766ed",
+   "target_id": "213bca7f-d644-de2f-0dec-6823fb5c9d56",
+   "relation_type": "analog",
+   "confidence": 0.52
+  },
+  {
+   "id": "33b893a5-8607-bfbf-0055-22936fa176ac",
+   "source_id": "3bbbe9ea-a894-8c89-3b61-867626bb7dbd",
+   "target_id": "2e7a26e9-c76c-603f-e7e8-f9f60a227385",
+   "relation_type": "contrast",
+   "confidence": 0.56
+  },
+  {
+   "id": "b1f925cb-7dd1-e6c7-187f-132d7da69370",
+   "source_id": "e01f5057-ca02-135e-92b1-d3f28ede0d7a",
+   "target_id": "81e74ef5-e8e2-5d94-0ed9-04759531985d",
+   "relation_type": "analog",
+   "confidence": 0.84
+  },
+  {
+   "id": "42b50c7c-83e0-3b8d-d4f3-318ef50b7e1d",
+   "source_id": "b98c67c2-15bd-448f-f261-49edbe4c5ce6",
+   "target_id": "6d80de7c-f4c7-3f2b-c8ff-1c385f93d180",
+   "relation_type": "analog",
+   "confidence": 0.72
+  },
+  {
+   "id": "7f919c89-3b45-63c7-b311-10c8f033b915",
+   "source_id": "f4de2c08-9aea-6429-b149-1e243192b704",
+   "target_id": "1ad2d5f1-e05b-3e13-f8c1-10fb3a828159",
+   "relation_type": "contrast",
+   "confidence": 0.49
+  },
+  {
+   "id": "185ba663-5b09-b845-539e-f49ca0c02a35",
+   "source_id": "66d22876-72fd-f202-2a96-fb1a14a0f9e7",
+   "target_id": "82ce786f-6fad-7936-4406-c053f895fc55",
+   "relation_type": "contrast",
+   "confidence": 0.62
+  },
+  {
+   "id": "5f381d79-0671-ce23-a557-41cbe371613e",
+   "source_id": "d5be785a-9187-df42-811e-7616c0bbe6ed",
+   "target_id": "3b1287ff-f52d-df5d-6164-99c9e25a7605",
+   "relation_type": "analog",
+   "confidence": 0.51
+  },
+  {
+   "id": "a17870d5-e24c-6c60-fb7f-36ee611a245e",
+   "source_id": "e28af604-65f4-2986-1818-9af4f3d74f82",
+   "target_id": "41023aed-54ef-125a-25bd-a659998648e0",
+   "relation_type": "contrast",
+   "confidence": 0.53
+  },
+  {
+   "id": "85903d97-53a0-00dc-94e2-7f7759365783",
+   "source_id": "4791c2e9-823d-11ed-a1b5-01d6d1f9bdfe",
+   "target_id": "24e4e25a-15fc-899e-4fd5-8dbe7bdc968b",
+   "relation_type": "contrast",
+   "confidence": 0.49
+  },
+  {
+   "id": "c5ffd933-b066-5350-7055-114e76917752",
+   "source_id": "35f10300-ee37-9c65-f212-01e4eaa3556c",
+   "target_id": "721888ff-4a3a-df99-34b3-ff60c26e7a42",
+   "relation_type": "contrast",
+   "confidence": 0.54
+  },
+  {
+   "id": "b25201e9-e297-9619-a488-0c457646cf57",
+   "source_id": "81f98b52-1905-d591-c5b2-e75a0acd8be1",
+   "target_id": "24e4e25a-15fc-899e-4fd5-8dbe7bdc968b",
+   "relation_type": "analog",
+   "confidence": 0.53
+  },
+  {
+   "id": "d7fa41b8-d397-1494-b402-b288c1364fe5",
+   "source_id": "796f74ad-faf5-5496-988a-f3fbd39630d6",
+   "target_id": "b4d19ec1-2955-d6f0-3945-336bd51b1815",
+   "relation_type": "analog",
+   "confidence": 0.74
+  },
+  {
+   "id": "293256b6-593f-f3df-85ad-81d79a575555",
+   "source_id": "0726e25c-fd56-a926-076b-3e36bb2313f5",
+   "target_id": "6471fde4-1f22-9dd0-6aa8-b9e0231b3e14",
+   "relation_type": "analog",
+   "confidence": 0.53
+  },
+  {
+   "id": "1a04f280-a86c-1fcf-f65e-e8fc2a23534a",
+   "source_id": "e7a46309-973f-7986-26b1-cffc070d7109",
+   "target_id": "f7b103df-2323-1e1e-e201-552240cbacd0",
+   "relation_type": "contrast",
+   "confidence": 0.51
+  },
+  {
+   "id": "46191aa0-6f57-1d36-4c22-b1f4bbb91047",
+   "source_id": "3a0b9965-cda6-c6fd-bd68-516766934036",
+   "target_id": "c9d488b1-cfbf-3360-9cfc-865239194242",
+   "relation_type": "analog",
+   "confidence": 0.51
+  },
+  {
+   "id": "08afbded-76c3-38fa-636a-5479e29f9ecb",
+   "source_id": "7b45145c-1a81-682c-64e5-0cad66237a04",
+   "target_id": "f5f554ed-8323-9ef5-4ba2-e1619fb9af50",
+   "relation_type": "contrast",
+   "confidence": 0.41
+  },
+  {
+   "id": "41d8bf61-244d-d37f-05a9-7aab76997819",
+   "source_id": "843baee9-b578-909c-4a75-91f27d575d17",
+   "target_id": "c6aa7d55-0101-b811-9bca-3cb72ee0289d",
+   "relation_type": "analog",
+   "confidence": 0.73
+  },
+  {
+   "id": "b37f58f4-6e16-56d0-da57-15e4e872f15c",
+   "source_id": "0cfff054-8efb-a442-738e-0b77d5f860c3",
+   "target_id": "81e74ef5-e8e2-5d94-0ed9-04759531985d",
+   "relation_type": "contrast",
+   "confidence": 0.72
+  },
+  {
+   "id": "1fcc9634-a43b-e368-2e77-1bd6adfa09b0",
+   "source_id": "75d8d8a4-f9c9-c679-a661-f62cbd65680c",
+   "target_id": "7b8444d1-8e31-7041-87dd-aeb784b28054",
+   "relation_type": "contrast",
+   "confidence": 0.65
+  },
+  {
+   "id": "c849ed81-3e0d-ac1c-6b69-9f07e50df523",
+   "source_id": "b5a432cf-86e3-e726-0b0f-873b2114e068",
+   "target_id": "f7b103df-2323-1e1e-e201-552240cbacd0",
+   "relation_type": "contrast",
+   "confidence": 0.62
+  },
+  {
+   "id": "9f1f2193-0508-42f5-7487-a00c7b951593",
+   "source_id": "f4de2c08-9aea-6429-b149-1e243192b704",
+   "target_id": "12b80aed-6da7-9a87-3d9a-8079abd0d7fb",
+   "relation_type": "analog",
+   "confidence": 0.87
+  },
+  {
+   "id": "d4f58692-6382-6536-02b8-c92ac736c452",
+   "source_id": "35372235-133e-6153-2962-59c8a4a915d0",
+   "target_id": "cd02c5e1-1635-3d03-551f-d8f9a2c68e45",
+   "relation_type": "analog",
+   "confidence": 0.67
+  },
+  {
+   "id": "b759efcf-292c-fb34-37c7-14cf8b19a2b6",
+   "source_id": "7b45145c-1a81-682c-64e5-0cad66237a04",
+   "target_id": "2e05319a-cb5c-7427-3f98-e2774cbd87ad",
+   "relation_type": "analog",
+   "confidence": 0.83
+  },
+  {
+   "id": "74efd764-9316-6586-d8df-71f419e0d64a",
+   "source_id": "d37ee915-31de-c4f4-df2a-8b79fc8e80b3",
+   "target_id": "35372235-133e-6153-2962-59c8a4a915d0",
+   "relation_type": "analog",
+   "confidence": 0.7
+  },
+  {
+   "id": "5eb2ad7e-d438-61ce-cae5-a871a3a6a0a9",
+   "source_id": "f09c0afb-1ebb-0794-65f4-56aad6cff718",
+   "target_id": "8eaca288-7bb1-d124-4d03-9b723d1926ac",
+   "relation_type": "contrast",
+   "confidence": 0.69
+  },
+  {
+   "id": "647a6c08-2f0d-b088-af32-3c2dfd82db76",
+   "source_id": "bc9e28ea-bee8-0626-10e8-ad0186a74a63",
+   "target_id": "f3e6ca73-4305-e986-8629-2bb5bf5b411b",
+   "relation_type": "contrast",
+   "confidence": 0.68
+  },
+  {
+   "id": "6651b3c4-61c0-0cbe-463c-465040a111b9",
+   "source_id": "1d87cec3-1f72-96ab-7961-fd925d39d0a8",
+   "target_id": "2f733b05-759e-b559-0b94-af3a4b05e1ae",
+   "relation_type": "contrast",
+   "confidence": 0.43
+  },
+  {
+   "id": "5a24dd36-acc5-3466-b2c0-b0bca0e99efb",
+   "source_id": "3f63af83-bd05-61e6-211c-70cf49952399",
+   "target_id": "75d8d8a4-f9c9-c679-a661-f62cbd65680c",
+   "relation_type": "analog",
+   "confidence": 0.72
+  },
+  {
+   "id": "f41e74e6-f09f-5791-6685-b4b8bdd104d7",
+   "source_id": "7b45145c-1a81-682c-64e5-0cad66237a04",
+   "target_id": "1ece615d-b9a6-442e-9e7d-6b377936d536",
+   "relation_type": "analog",
+   "confidence": 0.69
+  }
+ ]
+}

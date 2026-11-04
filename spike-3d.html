@@ -1,0 +1,218 @@
+<!doctype html>
+<!--
+  NOTES: 3D rotation spike (backlog idea b942532e)
+
+  What this is: a throwaway spike, separate from index.html, that renders the
+  OpenBrain thought graph with three.js via 3d-force-graph (pinned, three.js is
+  bundled inside the 3d-force-graph UMD build). It reads a static graph.json
+  snapshot because the public-thoughts-graph edge function is CORS-locked to
+  https://ramophalatse.github.io. Refresh the snapshot with:
+    curl -sS https://ckjxebkncqbiecopwnvb.supabase.co/functions/v1/public-thoughts-graph -o graph.json
+
+  Controls: middle-drag orbits, scroll zooms, left-drag on empty space pans,
+  left-drag on a node moves it, right-drag also pans, hover shows the label.
+  Node colour uses the same colorForScope() hash and palette as index.html;
+  node size uses the same nodeRadius() curve; links use RELATION_STYLE colours.
+
+  Porting the rest of index.html, rough cost:
+
+  1. Cluster-label overlay (medium, about 1 to 2 days).
+     computeClusters() is grid-accelerated single-link clustering on x/y. In
+     3D it needs a z axis: 3x3x3 neighbour cells instead of 3x3, and the EPS
+     heuristic (median nearest-neighbour distance) recomputed in 3D. The HTML
+     overlay can stay: each frame, project the cluster centroid with
+     Vector3.project(camera) to screen px, and estimate on-screen extent by
+     projecting the bounding sphere radius (replaces k * width from the d3
+     transform). New problems: labels for clusters behind the camera or
+     behind other clusters need culling (skip when projected z > 1, fade by
+     depth), and the de-overlap pass should sort by depth so near labels win.
+     Update cadence moves from the d3 zoom event to controls "change" plus
+     the engine tick, throttled with the existing rAF scheduler.
+
+  2. Years/months/weeks/days date drill-down cards (small, about half a day,
+     once 1 is done). bucketStart/bucketEnd/LEVELS, the timeline track and
+     the dateFilter state are pure DOM plus data and port unchanged; they
+     ride on the cluster overlay. Only applyBaseOpacity() changes: instead of
+     styling SVG circles, set per-node material opacity (nodeColor returning
+     rgba, or nodeThreeObject with a transparent MeshLambertMaterial) and
+     linkOpacity/linkColor per link, then call graph.nodeColor(graph.nodeColor())
+     to force a refresh. Hover highlight composes the same way.
+
+  3. Cmd/Ctrl-drag zoom gesture (small, a few hours). index.html drives a
+     d3 zoom transform; here zoom is camera distance. On pointerdown with
+     metaKey/ctrlKey, set controls.enabled = false, then on move dolly the
+     camera along the ray through the pointer (raycast the start point to a
+     plane through the orbit target, then lerp camera.position and
+     controls.target toward it by 2^(dy/150), clamped to min/max distance).
+     Re-enable controls on pointerup. Also decide whether plain wheel should
+     scroll the page like index.html (currently it zooms, per the spike
+     brief); OrbitControls has no wheel filter, so that needs
+     controls.enableZoom toggled by a capture-phase wheel listener checking
+     ctrlKey.
+
+  Other gaps not ported: polling, backlog mode, search, side panel, merge and
+  admin actions, theme toggle persistence (this page follows the OS theme).
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Thought Graph 3D</title>
+<script src="https://cdn.jsdelivr.net/npm/3d-force-graph@1.80.1/dist/3d-force-graph.min.js"></script>
+<style>
+  :root {
+    --bg: #fafaf9;
+    --card: #ffffff;
+    --text: #1c1917;
+    --muted: #78716c;
+    --border: #e7e5e4;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0c0c0d;
+      --card: #161618;
+      --text: #ececec;
+      --muted: #9a9aa0;
+      --border: #2a2a2e;
+    }
+  }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; }
+  #graph { position: fixed; inset: 0; }
+  .hud {
+    position: fixed; top: 12px; left: 12px; right: 12px; z-index: 2;
+    display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: baseline;
+    pointer-events: none; font-family: var(--mono); font-size: 12px; color: var(--muted);
+  }
+  .hud strong { color: var(--text); font-size: 13px; }
+  .hud .hint { flex-basis: 100%; }
+  .scene-tooltip, .float-tooltip-kap {
+    font-family: var(--mono) !important; font-size: 12px !important;
+    background: var(--card) !important; color: var(--text) !important;
+    border: 1px solid var(--border); border-radius: 6px; padding: 4px 8px !important;
+    max-width: 320px; white-space: normal;
+  }
+  #empty { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; font-family: var(--mono); color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="hud">
+  <strong>Thought graph 3D (spike)</strong>
+  <span id="counts">loading graph.json</span>
+  <span class="hint">middle-drag: orbit · scroll: zoom · left-drag: pan or move node · hover: label</span>
+</div>
+<div id="graph"></div>
+<div id="empty">couldn't load graph.json</div>
+<script>
+  // Copied from index.html so colours and sizes match exactly.
+  const RELATION_STYLE = {
+    origin: { color: "#059669", dash: null },
+    contrast: { color: "#e0575b", dash: "4,3" },
+    analog: { color: "#4c8dea", dash: "1,3" },
+  };
+  const SCOPE_PALETTE = ["#059669", "#4c8dea", "#e0575b", "#eab308", "#a855f7", "#14b8a6", "#f97316", "#64748b"];
+  function colorForScope(scope) {
+    if (!scope) return "#8b8f97";
+    let h = 0;
+    for (let i = 0; i < scope.length; i++) h = (h * 31 + scope.charCodeAt(i)) >>> 0;
+    return SCOPE_PALETTE[h % SCOPE_PALETTE.length];
+  }
+  function nodeRadius(d) {
+    return Math.min(18, 4 + Math.sqrt(d.degree || 0) * 2.2);
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
+  // Same shape index.html consumes: { thoughts: [...], relations: [...] }.
+  function toGraphData(data) {
+    const thoughts = data.thoughts || [];
+    const relations = data.relations || [];
+    const degree = new Map();
+    relations.forEach(r => {
+      degree.set(r.source_id, (degree.get(r.source_id) || 0) + 1);
+      degree.set(r.target_id, (degree.get(r.target_id) || 0) + 1);
+    });
+    const nodes = thoughts.map(t => ({
+      id: t.id,
+      content: t.content,
+      scope: t.scope,
+      created_at: t.created_at,
+      metadata: t.metadata || null,
+      degree: degree.get(t.id) || 0,
+    }));
+    const ids = new Set(nodes.map(n => n.id));
+    const links = relations
+      .filter(r => ids.has(r.source_id) && ids.has(r.target_id))
+      .map(r => ({ id: r.id, source: r.source_id, target: r.target_id, type: r.relation_type, confidence: r.confidence }));
+    return { nodes, links };
+  }
+
+  // THREE.MOUSE values: ROTATE = 0, DOLLY = 1, PAN = 2.
+  const MOUSE = { ROTATE: 0, DOLLY: 1, PAN: 2 };
+
+  const el = document.getElementById("graph");
+  const bg = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim() || "#0c0c0d";
+
+  const graph = new ForceGraph3D(el, { controlType: "orbit" })
+    .backgroundColor(bg)
+    .showNavInfo(false)   // its built-in hint describes the default buttons, not ours
+    .nodeId("id")
+    .nodeRelSize(1)
+    .nodeVal(d => Math.pow(nodeRadius(d), 3))   // 3d-force-graph radius = cbrt(val) * relSize
+    .nodeColor(d => colorForScope(d.scope))
+    .nodeOpacity(0.95)
+    .nodeResolution(12)
+    .nodeLabel(d => {
+      const text = escapeHtml((d.content || "").slice(0, 140));
+      const scope = d.scope ? `<div style="color:${colorForScope(d.scope)}">${escapeHtml(d.scope)}</div>` : "";
+      return `${scope}${text}`;
+    })
+    .linkColor(l => (RELATION_STYLE[l.type] || RELATION_STYLE.origin).color)
+    .linkOpacity(0.45)
+    .linkWidth(l => 0.3 + (l.confidence || 0.5) * 0.6)
+    .enableNodeDrag(true)
+    .onNodeDragEnd(n => { n.fx = n.x; n.fy = n.y; n.fz = n.z; })
+    .onNodeHover(n => { el.style.cursor = n ? "pointer" : ""; });
+
+  graph.d3Force("link").distance(l => l.type === "origin" ? 60 : 80).strength(0.5);
+  graph.d3Force("charge").strength(-140);
+
+  const controls = graph.controls();
+  controls.mouseButtons = { LEFT: MOUSE.PAN, MIDDLE: MOUSE.ROTATE, RIGHT: MOUSE.PAN };
+  controls.screenSpacePanning = true;
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.12;
+
+  // Workaround for 3d-force-graph 1.80.1 with controlType "orbit": on node drag
+  // end it dispatches a synthetic touch pointerup on the document, which
+  // OrbitControls mis-reads while it is still tracking the real mouse pointer
+  // (TypeError reading 'x'). The real pointerup still reaches OrbitControls
+  // right after, so swallowing the synthetic one is safe.
+  window.addEventListener("pointerup", e => {
+    if (!e.isTrusted && e.pointerType === "touch") e.stopImmediatePropagation();
+  }, true);
+
+  // Stop the browser's middle-click autoscroll from fighting the orbit drag.
+  el.addEventListener("mousedown", e => { if (e.button === 1) e.preventDefault(); });
+
+  window.addEventListener("resize", () => graph.width(window.innerWidth).height(window.innerHeight));
+
+  fetch("graph.json")
+    .then(res => { if (!res.ok) throw new Error(String(res.status)); return res.json(); })
+    .then(data => {
+      const gd = toGraphData(data);
+      graph.graphData(gd);
+      document.getElementById("counts").textContent =
+        `${gd.nodes.length} thoughts · ${gd.links.length} links · static snapshot`;
+      setTimeout(() => graph.zoomToFit(600, 40), 1500);
+    })
+    .catch(err => {
+      console.warn("graph.json load failed", err);
+      document.getElementById("empty").style.display = "flex";
+      document.getElementById("counts").textContent = "offline";
+    });
+</script>
+</body>
+</html>
