@@ -771,6 +771,7 @@
     grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
     gap: 14px;
   }
+  .app-links { margin-bottom: 40px; }
   .card {
     position: relative;
     overflow: hidden;
@@ -938,6 +939,19 @@
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
     </button>
   </header>
+
+  <section class="grid app-links" aria-label="Apps">
+    <article class="card">
+      <div class="ghost-glow" aria-hidden="true"></div>
+      <span class="ghost-mark" aria-hidden="true">Book of Health</span>
+      <div class="card-top">
+        <a class="card-name" href="https://ramo-book-of-health.netlify.app/" target="_blank" rel="noopener">Book of Health</a>
+        <span class="badge">live</span>
+      </div>
+      <div class="card-desc">Your personal health record. Sign in to access.</div>
+      <div class="card-meta"><span>Netlify</span><span>·</span><span>Sign-in required</span></div>
+    </article>
+  </section>
 
   <section id="thought-graph">
     <div class="graph-head">
